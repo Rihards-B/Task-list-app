@@ -1,0 +1,9 @@
+<body>
+    <div class="content">
+        <hr />
+        <span class="success" *ngIf="task?.status == 'complete'; else incomplete">✓</span>
+        <ng-template #incomplete><span class="failure">✗</span></ng-template>
+        <h3>{{task?.title}}</h3>
+        <p>{{task?.description}}</p>
+    </div>
+</body>
