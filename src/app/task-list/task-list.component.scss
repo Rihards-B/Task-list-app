@@ -1,0 +1,45 @@
+@use 'src/styles/colors.scss' as colors;
+
+h2 {
+    //padding-left: 2rem;
+    //margin: 0;
+    font-weight: 600;
+    color: colors.$fg-accent;
+}
+
+.flex-container {
+    display: flex;
+    height: 100%;
+}
+
+.centered {
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    justify-content: center;
+    background-color: colors.$bg-normal;
+    max-width: fit-content;
+    border: 4px solid colors.$fg-accent;
+    box-shadow: 12px 12px 12px colors.$bg-dark;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    padding: 2em;
+    overflow-y: scroll;
+    height: 60vh;
+}
+
+.task-list-header {
+    border-bottom: 4px solid colors.$fg-accent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
