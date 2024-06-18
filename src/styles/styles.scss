@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+@use "src/styles/colors.scss" as colors;
+
+html,
+body {
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-size: 1.2em;
+    color: colors.$fg-primary;
+}
+
+.bg-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-image: url("src/assets/20240413_173659.jpg");
+    //svg blur filter
+    filter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a' x='0' y='0' width='1' height='1' color-interpolation-filters='sRGB'%3E%3CfeGaussianBlur stdDeviation='1.5' result='b'/%3E%3CfeMorphology operator='dilate' radius='20'/%3E %3CfeMerge%3E%3CfeMergeNode/%3E%3CfeMergeNode in='b'/%3E%3C/feMerge%3E%3C/filter%3E %3C/svg%3E#a") brightness(25%);
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+}

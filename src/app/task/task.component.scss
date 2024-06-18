@@ -1,0 +1,14 @@
+@use "src/styles/colors.scss" as colors;
+
+h3 {
+    padding-left: 0.2rem;
+    display: inline;
+}
+
+.success {
+    color: colors.$success;
+}
+
+.failure {
+    color: colors.$failure;
+}

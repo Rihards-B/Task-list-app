@@ -1,0 +1,13 @@
+@if (task) {
+    <div class="content">
+        <hr />
+        @if (task.status == 'complete') {
+            <span class="success">✓</span>
+        }
+        @else {
+            <span class="failure">✗</span>
+        }
+        <h3>{{task.title}}</h3>
+        <p>{{task.description}}</p>
+    </div>
+}
