@@ -3,4 +3,5 @@ $bg-dark: #222222;
 $fg-primary: #888888;
 $fg-accent: #abcabc;
 $success: #36c886;
+$success-indent: adjust-hue(darken($success, 5%), 5deg);
 $failure: #ee4f4f;
