@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { Task } from '../models/task';
 import { NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
+import { TaskService } from '../sevices/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -14,30 +15,23 @@ import { TaskComponent } from '../task/task.component';
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   tasksCompleted: number = 0;
+  tasksSubsciption: Subscription = Subscription.EMPTY;
   tasks: Task[] = [];
-  private subscription: Subscription;
 
-  constructor(private http: HttpClient,) {
-    this.subscription = Subscription.EMPTY;
-  }
+  constructor(private http: HttpClient, private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.subscription = this.http.get('assets/dummy-tasks.json').subscribe((res: any) => {
-      this.tasks = res;
-    });
-    this.updateCompletedTasksCount();
+    this.taskService.tasksObservable$.subscribe((tasks) => {
+      this.tasks = tasks;
+    })
+    this.taskService.tasksComplete$.subscribe((completeCount) => {
+      this.tasksCompleted = completeCount;
+    })
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.tasksSubsciption.unsubscribe();
   }
 
-  updateCompletedTasksCount() {
-    this.tasksCompleted = 0;
-    this.tasks.forEach((task) => {
-      if (task.status === "complete") {
-        this.tasksCompleted++;
-      }
-    })
-  }
+
 }
