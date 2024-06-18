@@ -1,0 +1,9 @@
+@use "src/styles/colors.scss" as colors;
+
+.card {
+    justify-content: center;
+    background-color: colors.$bg-normal;
+    width: 30vw;
+    border: 4px solid colors.$fg-accent;
+    box-shadow: 12px 12px 12px colors.$bg-dark;
+}
