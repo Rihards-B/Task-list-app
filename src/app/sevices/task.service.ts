@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task';
 
@@ -7,28 +7,23 @@ import { Task } from '../models/task';
   providedIn: 'root'
 })
 export class TaskService{
-  jsonSubscription: Subscription = Subscription.EMPTY;
-  tasksSubscription: Subscription = Subscription.EMPTY;
-  private tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
-  tasksObservable$: Observable<Task[]> = this.tasksSubject.asObservable();
-  tasksComplete$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
+  tasksCompleteSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  constructor(private http: HttpClient) {
-    this.tasksSubscription = this.tasksSubject.subscribe((tasks: Task[]) => {});
-    this.jsonSubscription = this.http.get('assets/dummy-tasks.json').subscribe((res: any) => {
-        this.setTasks(res);
-    });
+  constructor(private http: HttpClient) {};
 
-  };
+  getExampleTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>('assets/dummy-tasks.json');
+  }
 
   addTask(task: Task) {
     this.tasksSubject.value.push(task);
-    this.tasksComplete$.next(this.countCompletedTasks());
+    this.tasksCompleteSubject.next(this.countCompletedTasks());
   }
 
   setTasks(tasks: Task[]) {
     this.tasksSubject.next(tasks);
-    this.tasksComplete$.next(this.countCompletedTasks());
+    this.tasksCompleteSubject.next(this.countCompletedTasks());
   }
 
   private countCompletedTasks(): number {
@@ -40,10 +35,5 @@ export class TaskService{
         }
     })
     return completedTasks;
-  }
-
-  ngOnDestroy(): void {
-    this.jsonSubscription.unsubscribe();
-    this.tasksSubscription.unsubscribe();
   }
 }

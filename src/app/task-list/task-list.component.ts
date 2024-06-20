@@ -14,23 +14,30 @@ import { TaskService } from '../sevices/task.service';
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent implements OnInit, OnDestroy {
+  completedTasksSubscription = Subscription.EMPTY;
+  exampleTasksSubscription = Subscription.EMPTY;
+  tasksSubscription = Subscription.EMPTY;
   tasksCompleted: number = 0;
-  tasksSubsciption: Subscription = Subscription.EMPTY;
   tasks: Task[] = [];
 
   constructor(private http: HttpClient, private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.taskService.tasksObservable$.subscribe((tasks) => {
+    this.exampleTasksSubscription = this.taskService.getExampleTasks().subscribe((tasks) => {
+      this.taskService.setTasks(tasks);
+    })
+    this.tasksSubscription = this.taskService.tasksSubject.subscribe((tasks) => {
       this.tasks = tasks;
     })
-    this.taskService.tasksComplete$.subscribe((completeCount) => {
+    this.completedTasksSubscription = this.taskService.tasksCompleteSubject.subscribe((completeCount) => {
       this.tasksCompleted = completeCount;
     })
   }
 
   ngOnDestroy(): void {
-    this.tasksSubsciption.unsubscribe();
+    this.completedTasksSubscription.unsubscribe();
+    this.tasksSubscription.unsubscribe();
+    this.exampleTasksSubscription.unsubscribe();
   }
 
 
