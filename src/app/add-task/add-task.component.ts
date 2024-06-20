@@ -19,7 +19,7 @@ export class AddTaskComponent implements OnInit {
     "Task"
   ]
   @ViewChild('addformtemplate') popupContent?: TemplateRef<any>;
-  formGroup!: FormGroup;
+  formGroup: FormGroup | null = null;
   constructor(private formBuilder: FormBuilder,
       private dialogRef: MatDialog,
       private taskService: TaskService) { }
@@ -33,10 +33,12 @@ export class AddTaskComponent implements OnInit {
   }
 
   submit() {
-    let formResult = this.formGroup.value;
-    let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
-    this.taskService.addTask(task);
-    this.dialogRef.closeAll();
+    if (this.formGroup) {
+      let formResult = this.formGroup.value;
+      let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
+      this.taskService.addTask(task);
+      this.dialogRef.closeAll();
+    }
   }
 
   openForm() {
