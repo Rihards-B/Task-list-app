@@ -10,6 +10,8 @@
                 <div>
                     <label for="title">Title:</label><br>
                     <input type="text" formControlName="title">
+                    <app-form-error [control]="formGroup.controls['title']">
+                    </app-form-error>
                 </div>
                 <div>
                     <label for="description">Description:</label><br>
@@ -23,9 +25,11 @@
                         {{type}}
                     </option>
                     </select>
+                    <app-form-error [control]="formGroup.controls['type']">
+                    </app-form-error>
                 </div>
                 <div>
-                    <button type="submit" class="button round">Add Task!</button>
+                    <button #submitButton type="submit" class="button round" [ngClass]="{'disabled': !formGroup.valid}">Add Task!</button>
                 </div>
             </form>
         }

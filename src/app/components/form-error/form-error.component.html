@@ -1,0 +1,10 @@
+@if(control) {
+    @if(control.invalid && control.touched || control.dirty) {
+        @if(control.errors?.["required"]) {
+            <small>Field required!</small>
+        }
+        @if(control.errors?.["uniqueTitle"]) {
+            <small>Title must be unique!</small>
+        }
+    }
+}
