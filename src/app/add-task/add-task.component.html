@@ -1,0 +1,36 @@
+<div class="button-container">
+    <button class="button round-top" (click)="openForm()">+</button>
+</div>
+
+<ng-template #addformtemplate>
+    <div class="add-task">
+        <h1 class="dialog-title">Add a new task</h1>
+        @if (formGroup) {
+            <form class="flex centered" [formGroup]="formGroup" (ngSubmit)="submit()">
+                <div>
+                    <label for="title">Title:</label><br>
+                    <input type="text" formControlName="title">
+                </div>
+                <div>
+                    <label for="description">Description:</label><br>
+                    <textarea formControlName="description">
+                    </textarea>
+                </div>
+                <div>
+                    <label for="type">Type:</label><br>
+                    <select formControlName="type">
+                    <option *ngFor="let type of typeOptions" [ngValue]="type">
+                        {{type}}
+                    </option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" class="button round">Add Task!</button>
+                </div>
+            </form>
+        }
+        @else {
+            <p>There was an error creating the form!</p>
+        }
+    </div>
+</ng-template>

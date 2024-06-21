@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TaskListComponent } from './task-list/task-list.component';
-import { Observable, Subscription, fromEvent } from 'rxjs';
+import { TasksCardComponent } from './tasks-card/tasks-card.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, TaskListComponent],
+  imports: [RouterOutlet, TasksCardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

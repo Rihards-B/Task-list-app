@@ -5,6 +5,10 @@ h3 {
     display: inline;
 }
 
+.wrap {
+    word-wrap: break-word;
+}
+
 .success {
     color: colors.$success;
 }

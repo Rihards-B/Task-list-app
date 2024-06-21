@@ -3,17 +3,14 @@
 
 html,
 body {
-    height: 100%;
-}
-
-* {
-    box-sizing: border-box;
+    height: 99%;
+    overflow: auto;
 }
 
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    font-size: 1.2em;
+    font-size: 2vh;
     color: colors.$fg-primary;
 }
 
@@ -30,4 +27,25 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1;
+}
+
+.centered {
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-container {
+    display: flex;
+    height: 99%;
+}
+
+.darker {
+    background-color: colors.$bg-dark;
+}
+
+.button {
+    padding: 0.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    color: colors.$fg-primary
 }
