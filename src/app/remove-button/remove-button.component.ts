@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from '../sevices/task.service';
 
 @Component({
@@ -9,13 +9,14 @@ import { TaskService } from '../sevices/task.service';
   styleUrl: './remove-button.component.scss'
 })
 export class RemoveButtonComponent {
-  @Input() taskTitle: string | null = null;
-
+  @Input() keyToRemove: string | null = null;
+  @Output() removeKey = new EventEmitter<string>();
+  
   constructor(private taskService: TaskService) {}
 
   onClick() {
-    if(this.taskTitle) {
-      this.taskService.removeTask(this.taskTitle);
+    if(this.keyToRemove) {
+      this.removeKey.emit(this.keyToRemove);
     }
   }
 }

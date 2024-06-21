@@ -34,5 +34,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.tasksSubsciption.unsubscribe();
   }
 
+  removeTask(taskTitle: string) {
+    this.taskService.removeTask(taskTitle);
+  }
+
 
 }
