@@ -5,11 +5,12 @@ import { Task } from '../models/task';
 import { NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../sevices/task.service';
+import { RemoveButtonComponent } from '../remove-button/remove-button.component';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [HttpClientModule, NgFor, NgIf, TaskComponent],
+  imports: [HttpClientModule, NgFor, NgIf, TaskComponent, RemoveButtonComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
@@ -38,6 +39,10 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.completedTasksSubscription.unsubscribe();
     this.tasksSubscription.unsubscribe();
     this.exampleTasksSubscription.unsubscribe();
+  }
+
+  removeTask(taskTitle: string) {
+    this.taskService.removeTask(taskTitle);
   }
 
 
