@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { Task } from '../models/task';
+import { Task } from '../../models/task';
 import { NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
-import { TaskService } from '../sevices/task.service';
+import { TaskService } from '../../sevices/task.service';
 
 @Component({
   selector: 'app-task-list',
