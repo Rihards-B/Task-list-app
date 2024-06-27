@@ -4,8 +4,13 @@
         <p>Tasks completed: {{tasksCompleted}} / {{tasks.length}}</p>
     </div>
     <ul class="task-list">
-        <li class="list-element" *ngFor="let task of tasks">
-            <app-task [task]="task"></app-task>
+        <hr/>
+        <li *ngFor="let task of tasks">
+            <div class="list-element" >
+                <app-task class="task" [task]="task"></app-task>
+                <app-remove-button (removeKey)="removeTask($event)" class="remove-button" [keyToRemove]="task.title"></app-remove-button>
+            </div>
+            <hr/>
         </li>
     </ul>
 </div>

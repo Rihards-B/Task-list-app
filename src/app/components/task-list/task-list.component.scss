@@ -5,6 +5,15 @@ h2 {
     color: colors.$fg-accent;
 }
 
+.list-element {
+    display: flex;
+    flex-direction: row;
+}
+
+.task {
+    flex-grow: 1;
+}
+
 .task-list {
     list-style: none;
     padding: 0;
@@ -22,4 +31,8 @@ h2 {
     justify-content: space-between;
     padding-left: 2rem;
     padding-right: 2rem;
+}
+
+.remove-button {
+    align-self: center;
 }

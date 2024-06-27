@@ -1,0 +1,8 @@
+@use 'src/styles/colors.scss' as colors;
+
+.remove-button {
+    padding: 0.5em;
+    background-color: colors.$failure;
+    color: white;
+    font-size: 2vh;
+}

@@ -30,6 +30,11 @@ export class TaskService{
     let result = this.tasksSubject.getValue().find((task) => task.title === title);
     return result ? result : null;
   }
+  
+  removeTask(taskTitle: string) {
+    let tasks: Task[] = this.tasksSubject.getValue();
+    tasks.splice(tasks.findIndex((task) => task.title === taskTitle), 1)
+  }
 
   private countCompletedTasks(): number {
     let completedTasks: number = 0;
