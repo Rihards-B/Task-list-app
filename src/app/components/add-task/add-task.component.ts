@@ -39,10 +39,10 @@ export class AddTaskComponent implements OnInit {
     })
   }
 
-  submit() {
-    this.formGroup.markAllAsTouched();
-    if(this.formGroup.valid) {
-      let formResult = this.formGroup.value;
+  submit(formGroup: FormGroup) {
+    formGroup.markAllAsTouched();
+    if(formGroup.valid) {
+      let formResult = formGroup.value;
       let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
       this.taskService.addTask(task);
       this.dialogRef.closeAll();

@@ -6,7 +6,7 @@
     <div class="add-task">
         <h1 class="dialog-title">Add a new task</h1>
         @if (formGroup) {
-            <form class="flex centered" [formGroup]="formGroup" (ngSubmit)="submit()">
+            <form class="flex centered" [formGroup]="formGroup" (ngSubmit)="submit(formGroup)">
                 <div>
                     <label for="title">Title:</label><br>
                     <input type="text" formControlName="title">
