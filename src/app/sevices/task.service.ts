@@ -27,8 +27,7 @@ export class TaskService{
   }
 
   getTaskByTitle(title: string): Task | null {
-    let result = this.tasksSubject.getValue().find((task) => task.title === title);
-    return result ? result : null;
+    return this.tasksSubject.getValue().find((task) => task.title === title) ?? null;
   }
   
   removeTask(taskTitle: string) {
