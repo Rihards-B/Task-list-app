@@ -1,7 +1,3 @@
-<div class="button-container">
-    <button class="button round-top" (click)="openForm()">+</button>
-</div>
-
 <ng-template #addformtemplate>
     <div class="add-task">
         <h1 class="dialog-title">Add a new task</h1>
@@ -21,9 +17,11 @@
                 <div>
                     <label for="type">Type:</label><br>
                     <select formControlName="type">
-                    <option *ngFor="let type of typeOptions" [ngValue]="type">
-                        {{type}}
-                    </option>
+                        @for (type of typeOptions; track type) {
+                            <option [value]="type">
+                                {{type}}
+                            </option>
+                        }
                     </select>
                     <app-form-error [control]="formGroup.controls['type']">
                     </app-form-error>
