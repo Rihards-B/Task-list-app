@@ -26,6 +26,10 @@ export class TaskService{
     this.tasksCompleteSubject.next(this.countCompletedTasks());
   }
 
+  getTaskByTitle(title: string): Task | null {
+    return this.tasksSubject.getValue().find((task) => task.title === title) ?? null;
+  }
+  
   removeTask(taskTitle: string) {
     let tasks: Task[] = this.tasksSubject.getValue();
     tasks.splice(tasks.findIndex((task) => task.title === taskTitle), 1)

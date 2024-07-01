@@ -1,0 +1,6 @@
+@use 'src/styles/colors.scss' as colors;
+
+small {
+    color: colors.$failure;
+    font-weight: 400;
+}

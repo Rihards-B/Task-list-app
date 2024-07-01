@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { Task } from '../models/task';
+import { Task } from '../../models/task';
 import { NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
-import { TaskService } from '../sevices/task.service';
-import { RemoveButtonComponent } from '../remove-button/remove-button.component';
+import { TaskService } from '../../sevices/task.service';
+import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 
 @Component({
   selector: 'app-task-list',
