@@ -75,10 +75,10 @@ textarea {
   border: colors.$failure solid 3px;
 }
 
-.disabled {
+button:disabled {
   background-color: gray;
 }
 
-.disabled:hover {
+button:disabled:hover {
   background-color: gray
 }

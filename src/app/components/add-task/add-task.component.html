@@ -29,7 +29,7 @@
                     </app-form-error>
                 </div>
                 <div>
-                    <button #submitButton type="submit" class="button round" [ngClass]="{'disabled': !formGroup.valid}">Add Task!</button>
+                    <button #submitButton type="submit" class="button round" [disabled]="!formGroup.valid">Add Task!</button>
                 </div>
             </form>
         }
