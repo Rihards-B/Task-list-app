@@ -7,6 +7,7 @@ import { Task } from '../models/task';
   providedIn: 'root'
 })
 export class TaskService{
+  initialized: Boolean = false;
   tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   tasksCompleteSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
@@ -24,6 +25,7 @@ export class TaskService{
   setTasks(tasks: Task[]) {
     this.tasksSubject.next(tasks);
     this.tasksCompleteSubject.next(this.countCompletedTasks());
+    this.initialized = true;
   }
 
   getTaskByTitle(title: string): Task | null {
