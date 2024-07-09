@@ -1,0 +1,6 @@
+@use 'src/styles/colors.scss' as colors;
+
+.container {
+    background-color: colors.$bg-normal;
+    padding: 1rem;
+}
