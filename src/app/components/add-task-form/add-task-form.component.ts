@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { TaskService } from '../../sevices/task.service';
 import { Task } from '../../models/task';
 import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.service';
@@ -15,17 +14,14 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss'
 })
-export class AddTaskFormComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AddTaskFormComponent implements OnInit {
   typeOptions: string[] = [
     "Story",
     "Task"
   ]
-
-  @ViewChild('addformtemplate') popupContent?: TemplateRef<any>;
   formGroup!: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-      private dialogRef: MatDialog,
       private taskService: TaskService,
       private taskFormValidationService: TaskFormValidationService,
       private router: Router) { }
@@ -38,18 +34,6 @@ export class AddTaskFormComponent implements OnInit, OnDestroy, AfterViewInit {
       description: [""],
       type: ["", {validators: [Validators.required]}]
     })
-
-  }
-
-  ngOnDestroy(): void {
-    this.dialogRef.closeAll();
-  }
-
-  ngAfterViewInit(): void {
-    this.openForm();
-    this.dialogRef.afterAllClosed.subscribe(() => {
-      this.router.navigateByUrl("/");
-    })
   }
 
   submit(formGroup: FormGroup) {
@@ -58,15 +42,7 @@ export class AddTaskFormComponent implements OnInit, OnDestroy, AfterViewInit {
       let formResult = formGroup.value;
       let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
       this.taskService.addTask(task);
-      this.dialogRef.closeAll();
-      this.formGroup.reset();
+      this.router.navigateByUrl("/");
     }
   }
-
-  openForm() {
-    if (this.popupContent) {
-      this.dialogRef.open(this.popupContent, undefined)
-    }
-  }
-
 }
