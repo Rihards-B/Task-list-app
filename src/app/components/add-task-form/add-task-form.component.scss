@@ -8,6 +8,8 @@
 .add-task {
   border-top: 4px colors.$fg-accent solid;
   background-color: colors.$bg-normal;
+  display: flex;
+  flex-direction: column;
 }
 
 form {
@@ -53,18 +55,10 @@ textarea {
   background-color: colors.$success-indent;
 }
 
-.button-container {
-  height: 10vh;
-}
-
 .dialog-title {
   margin: 0;
   padding: 1em 0 1em 0;
   text-align: center;
-}
-
-.round-top {
-  border-radius: 1rem 1rem 0rem 0rem;
 }
 
 .round {
@@ -81,4 +75,16 @@ button:disabled {
 
 button:disabled:hover {
   background-color: gray
+}
+
+.close-form {
+  padding-right: 0.5em;
+  align-self: flex-end;
+  font-size: 2rem;
+  text-decoration: none;
+  color: colors.$fg-accent;
+}
+
+.close-form:hover {
+  color: colors.$fg-primary;
 }

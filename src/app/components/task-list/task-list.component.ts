@@ -25,7 +25,9 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.exampleTasksSubscription = this.taskService.getExampleTasks().subscribe((tasks) => {
-      this.taskService.setTasks(tasks);
+      if(!this.taskService.initialized){
+        this.taskService.setTasks(tasks);
+      } 
     })
     this.tasksSubscription = this.taskService.tasksSubject.subscribe((tasks) => {
       this.tasks = tasks;
