@@ -40,7 +40,7 @@ export class AddTaskFormComponent implements OnInit {
     formGroup.markAllAsTouched();
     if(formGroup.valid) {
       let formResult = formGroup.value;
-      let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
+      let task: Task = new Task(this.taskService.getNextTaskID(), formResult.title, formResult.description, formResult.type, "incomplete");
       this.taskService.addTask(task);
       this.router.navigateByUrl("/");
     }

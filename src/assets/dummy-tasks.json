@@ -1,23 +1,27 @@
 [
     {
+        "id": "1",
         "title": "TM-4 Base",
         "description": "Create a base for listing, adding and removing tasks",
         "type": "Story",
         "status": "incomplete"
     },
     {
+        "id": "2",
         "title": "TM-6 List Tasks",
         "description": "Display a list of all tasks",
         "type": "Task",
         "status": "complete"
     },
     {
+        "id": "3",
         "title": "TM-5 Add Tasks",
         "description": "Create a component for adding tasks",
         "type": "Task",
         "status": "incomplete"
     },
     {
+        "id": "4",
         "title": "TM-7 Delete Tasks",
         "description": "Create a component for deleting tasks",
         "type": "Task",

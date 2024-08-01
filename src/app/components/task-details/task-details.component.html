@@ -1,0 +1,9 @@
+@if (this.task) {
+    <div class="container">
+        <app-task [task]="this.task"></app-task>
+    </div>
+} 
+@else {
+        <h1>A task with the id: "{{this.id}}" doesn't exist!</h1>
+}
+
