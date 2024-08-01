@@ -15,16 +15,16 @@ import { Task } from 'src/app/models/task';
 
 export class TaskDetailsComponent implements OnInit, OnDestroy {
   paramSubscription: Subscription = Subscription.EMPTY;
-  tasktitle: string | null = null;
+  id: string | null = null;
   task: Task | null = null;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.paramSubscription = this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.tasktitle = paramMap.get("title");
-      if(this.tasktitle){
-        this.task = this.taskService.getTaskByTitle(this.tasktitle);
+      this.id = paramMap.get("id");
+      if(this.id){
+        this.task = this.taskService.getTaskByID(this.id);
       }
     });
   }

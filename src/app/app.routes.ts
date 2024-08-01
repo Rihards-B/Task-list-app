@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 export const routes: Routes = [
     {path: "", component: TasksCardComponent},
     {path: "add-task", component: AddTaskFormComponent},
-    {path: ":title/details", component: TaskDetailsComponent},
+    {path: ":id/details", component: TaskDetailsComponent},
     {path: "404", component: PageNotFoundComponent},
     {path: "**", redirectTo: "/404"}
 ];

@@ -9,8 +9,8 @@ import { TaskService } from '../sevices/task.service';
   styleUrl: './remove-button.component.scss'
 })
 export class RemoveButtonComponent {
-  @Input() keyToRemove: string | null = null;
-  @Output() removeKey = new EventEmitter<string>();
+  @Input() keyToRemove: any | null = null;
+  @Output() removeKey = new EventEmitter<any>();
   
   constructor(private taskService: TaskService) {}
 

@@ -38,7 +38,6 @@ export class AddTaskFormComponent implements OnInit, OnDestroy, AfterViewInit {
       description: [""],
       type: ["", {validators: [Validators.required]}]
     })
-
   }
 
   ngOnDestroy(): void {
@@ -56,7 +55,7 @@ export class AddTaskFormComponent implements OnInit, OnDestroy, AfterViewInit {
     formGroup.markAllAsTouched();
     if(formGroup.valid) {
       let formResult = formGroup.value;
-      let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
+      let task: Task = new Task(this.taskService.getNextTaskID(), formResult.title, formResult.description, formResult.type, "incomplete");
       this.taskService.addTask(task);
       this.dialogRef.closeAll();
       this.formGroup.reset();
@@ -68,5 +67,4 @@ export class AddTaskFormComponent implements OnInit, OnDestroy, AfterViewInit {
       this.dialogRef.open(this.popupContent, undefined)
     }
   }
-
 }

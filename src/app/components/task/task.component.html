@@ -6,7 +6,7 @@
         @else {
             <span class="failure">✗</span>
         }
-        <a [routerLink]="'/' + task.title + '/details'"><h3>{{task.title}}</h3></a>
+        <a [routerLink]="'/' + task.id + '/details'"><h3>{{task.title}}</h3></a>
         <p>{{task.description}}</p>
     </div>
 }
