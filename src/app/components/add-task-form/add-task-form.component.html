@@ -1,38 +1,37 @@
-<ng-template #addformtemplate>
-    <div class="add-task">
-        <h1 class="dialog-title">Add a new task</h1>
-        @if (formGroup) {
-            <form class="flex centered" [formGroup]="formGroup" (ngSubmit)="submit(formGroup)">
-                <div>
-                    <label for="title">Title:</label><br>
-                    <input type="text" formControlName="title">
-                    <app-form-error [control]="formGroup.controls['title']">
-                    </app-form-error>
-                </div>
-                <div>
-                    <label for="description">Description:</label><br>
-                    <textarea formControlName="description">
-                    </textarea>
-                </div>
-                <div>
-                    <label for="type">Type:</label><br>
-                    <select formControlName="type">
-                        @for (type of typeOptions; track type) {
-                            <option [value]="type">
-                                {{type}}
-                            </option>
-                        }
-                    </select>
-                    <app-form-error [control]="formGroup.controls['type']">
-                    </app-form-error>
-                </div>
-                <div>
-                    <button #submitButton type="submit" class="button round" [disabled]="!formGroup.valid">Add Task!</button>
-                </div>
-            </form>
-        }
-        @else {
-            <p>There was an error creating the form!</p>
-        }
-    </div>
-</ng-template>
+<div class="add-task">
+    <a class="close-form" routerLink="/">x</a>
+    <h1 class="dialog-title">Add a new task</h1>
+    @if (formGroup) {
+        <form class="flex centered" [formGroup]="formGroup" (ngSubmit)="submit(formGroup)">
+            <div>
+                <label for="title">Title:</label><br>
+                <input type="text" formControlName="title">
+                <app-form-error [control]="formGroup.controls['title']">
+                </app-form-error>
+            </div>
+            <div>
+                <label for="description">Description:</label><br>
+                <textarea formControlName="description">
+                </textarea>
+            </div>
+            <div>
+                <label for="type">Type:</label><br>
+                <select formControlName="type">
+                    @for (type of typeOptions; track type) {
+                        <option [value]="type">
+                            {{type}}
+                        </option>
+                    }
+                </select>
+                <app-form-error [control]="formGroup.controls['type']">
+                </app-form-error>
+            </div>
+            <div>
+                <button #submitButton type="submit" class="button round" [disabled]="!formGroup.valid">Add Task!</button>
+            </div>
+        </form>
+    }
+    @else {
+        <p>There was an error creating the form!</p>
+    }
+</div>
