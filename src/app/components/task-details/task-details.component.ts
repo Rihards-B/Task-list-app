@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ParamMap, ActivatedRoute } from '@angular/router';
 import { TaskService } from 'src/app/sevices/task.service';
 import { TaskComponent } from '../task/task.component';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Task } from 'src/app/models/task';
 
 @Component({
@@ -24,7 +24,9 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
     this.paramSubscription = this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get("id");
       if(this.id){
-        this.task = this.taskService.getTaskByID(this.id);
+        this.taskService.getTask(this.id)?.pipe(take(1)).subscribe((task) => {
+          this.task = task;
+        });
       }
     });
   }

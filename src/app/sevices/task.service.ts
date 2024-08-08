@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
+import { BehaviorSubject, first, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task';
 import { backend_tasks } from '../constants/endpoints';
@@ -22,6 +22,12 @@ export class TaskService{
     return this.http.get<Task[]>(backend_tasks);
   }
 
+  // Get /tasks/:id
+  // Finds and returns a task by ID
+  getTask(id: string): Observable<Task> | null {
+    return this.http.get<Task>(backend_tasks+id);
+  }
+
   addTask(task: Task) {
     this.tasksSubject.value.push(task);
     this.tasksCompleteSubject.next(this.countCompletedTasks());
@@ -40,7 +46,7 @@ export class TaskService{
   }
 
   getTaskByID(id: string): Task | null {
-    return this.tasksSubject.getValue().find((task) => task.id === id) ?? null;
+    return this.tasksSubject.getValue().find((task) => task._id === id) ?? null;
   }
   
   removeTask(taskTitle: string) {
@@ -50,7 +56,7 @@ export class TaskService{
 
   removeTaskByID(id: string) {
     let tasks: Task[] = this.tasksSubject.getValue();
-    tasks.splice(tasks.findIndex((task) => task.id === id), 1)
+    tasks.splice(tasks.findIndex((task) => task._id === id), 1)
   }
 
   getNextTaskID() {
