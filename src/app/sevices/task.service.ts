@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task';
+import { backend_tasks } from '../constants/endpoints';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,10 @@ export class TaskService{
 
   constructor(private http: HttpClient) {};
 
-  getExampleTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>('assets/dummy-tasks.json');
+  // GET /tasks
+  // Returns a list of all tasks
+  getTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(backend_tasks);
   }
 
   addTask(task: Task) {

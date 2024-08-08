@@ -16,7 +16,6 @@ import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.compo
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   completedTasksSubscription = Subscription.EMPTY;
-  exampleTasksSubscription = Subscription.EMPTY;
   tasksSubscription = Subscription.EMPTY;
   tasksCompleted: number = 0;
   tasks: Task[] = [];
@@ -24,10 +23,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.exampleTasksSubscription = this.taskService.getExampleTasks().subscribe((tasks) => {
+    this.tasksSubscription = this.taskService.getTasks().subscribe((tasks) => {
       this.taskService.setTasks(tasks);
-    })
-    this.tasksSubscription = this.taskService.tasksSubject.subscribe((tasks) => {
       this.tasks = tasks;
     })
     this.completedTasksSubscription = this.taskService.tasksCompleteSubject.subscribe((completeCount) => {
@@ -38,7 +35,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.completedTasksSubscription.unsubscribe();
     this.tasksSubscription.unsubscribe();
-    this.exampleTasksSubscription.unsubscribe();
   }
 
   removeTask(taskTitle: string) {
