@@ -42,7 +42,7 @@ export class AddTaskFormComponent implements OnInit {
       let formResult = formGroup.value;
       // Commenting out the creation line because db id is now needed for Task object
       //let task: Task = new Task(this.taskService.getNextTaskID(), formResult.title, formResult.description, formResult.type, "incomplete");
-      this.taskService.addTask(task);
+      //this.taskService.addTask(task);
       this.router.navigateByUrl("/");
     }
   }
