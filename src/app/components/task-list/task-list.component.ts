@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Task } from '../../models/task';
 import { NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
@@ -16,18 +16,15 @@ import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.compo
 })
 export class TaskListComponent implements OnInit, OnDestroy {
   completedTasksSubscription = Subscription.EMPTY;
-  exampleTasksSubscription = Subscription.EMPTY;
-  tasksSubscription = Subscription.EMPTY;
   tasksCompleted: number = 0;
+  tasksSubscription = Subscription.EMPTY;
   tasks: Task[] = [];
 
   constructor(private http: HttpClient, private taskService: TaskService) {}
 
   ngOnInit(): void {
-    this.exampleTasksSubscription = this.taskService.getExampleTasks().subscribe((tasks) => {
-      if(!this.taskService.initialized){
-        this.taskService.setTasks(tasks);
-      } 
+    this.taskService.getTasks().pipe(take(1)).subscribe((tasks) => {
+      this.taskService.setTasks(tasks);
     })
     this.tasksSubscription = this.taskService.tasksSubject.subscribe((tasks) => {
       this.tasks = tasks;
@@ -39,8 +36,6 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.completedTasksSubscription.unsubscribe();
-    this.tasksSubscription.unsubscribe();
-    this.exampleTasksSubscription.unsubscribe();
   }
 
   removeTask(taskID: string) {
