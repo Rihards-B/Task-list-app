@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { Task } from '../../models/task';
 import { NgFor, NgIf } from '@angular/common';
@@ -37,9 +37,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
     this.tasksSubscription.unsubscribe();
   }
 
-  removeTask(taskTitle: string) {
-    this.taskService.removeTask(taskTitle);
+  removeTask(taskID: string) {
+    this.taskService.removeTaskByID(taskID);
   }
-
-
 }

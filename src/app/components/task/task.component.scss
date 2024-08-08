@@ -16,3 +16,12 @@ h3 {
 .failure {
     color: colors.$failure;
 }
+
+a {
+    text-decoration: none;
+    color: colors.$fg-primary;
+}
+
+a:hover {
+    color: colors.$fg-accent;
+}

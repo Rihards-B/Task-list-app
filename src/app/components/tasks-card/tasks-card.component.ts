@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { TaskListComponent } from '../task-list/task-list.component';
-import { AddTaskComponent } from '../add-task/add-task.component';
+import { AddTaskButtonComponent } from '../add-task-button/add-task-button.component';
 
 @Component({
   selector: 'app-tasks-card',
   standalone: true,
-  imports: [TaskListComponent, AddTaskComponent],
+  imports: [TaskListComponent, AddTaskButtonComponent],
   templateUrl: './tasks-card.component.html',
   styleUrl: './tasks-card.component.scss'
 })

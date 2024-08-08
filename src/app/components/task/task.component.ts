@@ -1,10 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Task } from '../../models/task';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })
