@@ -28,9 +28,10 @@ export class TaskService{
     return this.http.get<Task>(backend_tasks+id);
   }
 
-  addTask(task: Task) {
-    this.tasksSubject.value.push(task);
-    this.tasksCompleteSubject.next(this.countCompletedTasks());
+  // Post /tasks
+  // Adds a task to the database
+  addTask(task: Task): Observable<unknown> {
+    return this.http.post<Task>(backend_tasks, task);
   }
 
   setTasks(tasks: Task[]) {

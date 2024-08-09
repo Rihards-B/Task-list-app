@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskService } from '../../sevices/task.service';
 import { Task } from '../../models/task';
@@ -6,6 +6,7 @@ import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.se
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { TaskListComponent } from '../task-list/task-list.component';
 import { Router, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-task-form',
@@ -14,12 +15,13 @@ import { Router, RouterModule } from '@angular/router';
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss'
 })
-export class AddTaskFormComponent implements OnInit {
+export class AddTaskFormComponent implements OnInit, OnDestroy {
   typeOptions: string[] = [
     "Story",
     "Task"
   ]
   formGroup!: FormGroup;
+  private postSubscription = Subscription.EMPTY;
 
   constructor(private formBuilder: FormBuilder,
       private taskService: TaskService,
@@ -36,13 +38,16 @@ export class AddTaskFormComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this.postSubscription.unsubscribe();
+  }
+
   submit(formGroup: FormGroup) {
     formGroup.markAllAsTouched();
     if(formGroup.valid) {
       let formResult = formGroup.value;
-      // Commenting out the creation line because db id is now needed for Task object
-      //let task: Task = new Task(this.taskService.getNextTaskID(), formResult.title, formResult.description, formResult.type, "incomplete");
-      //this.taskService.addTask(task);
+      let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
+      this.postSubscription = this.taskService.addTask(task).subscribe();
       this.router.navigateByUrl("/");
     }
   }
