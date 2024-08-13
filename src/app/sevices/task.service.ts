@@ -24,7 +24,8 @@ export class TaskService {
 
   // Get /tasks/:id
   // Finds and returns a task by ID
-  getTask(id: string): Observable<Task> | null {
+
+  getTask(id: string): Observable<Task> {
     return this.http.get<Task>(backend_tasks + id);
   }
 
