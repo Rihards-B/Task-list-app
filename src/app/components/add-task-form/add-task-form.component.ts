@@ -24,17 +24,19 @@ export class AddTaskFormComponent implements OnInit, OnDestroy {
   private postSubscription = Subscription.EMPTY;
 
   constructor(private formBuilder: FormBuilder,
-      private taskService: TaskService,
-      private taskFormValidationService: TaskFormValidationService,
-      private router: Router) { }
+    private taskService: TaskService,
+    private taskFormValidationService: TaskFormValidationService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      title: ["", {validators: [Validators.required,
+      title: ["", {
+        validators: [Validators.required,
         this.taskFormValidationService.uniqueTitle(),
-      ]}],
+        ]
+      }],
       description: [""],
-      type: ["", {validators: [Validators.required]}]
+      type: ["", { validators: [Validators.required] }]
     })
   }
 
@@ -44,11 +46,12 @@ export class AddTaskFormComponent implements OnInit, OnDestroy {
 
   submit(formGroup: FormGroup) {
     formGroup.markAllAsTouched();
-    if(formGroup.valid) {
+    if (formGroup.valid) {
       let formResult = formGroup.value;
       let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
-      this.postSubscription = this.taskService.addTask(task).subscribe();
-      this.router.navigateByUrl("/");
+      this.postSubscription = this.taskService.addTask(task).subscribe(() => [
+        this.router.navigateByUrl("/")
+      ]);
     }
   }
 }
