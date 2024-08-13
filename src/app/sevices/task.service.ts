@@ -24,7 +24,6 @@ export class TaskService {
 
   // Get /tasks/:id
   // Finds and returns a task by ID
-
   getTask(id: string): Observable<Task> {
     return this.http.get<Task>(backend_tasks + id);
   }
@@ -33,6 +32,12 @@ export class TaskService {
   // Adds a task to the database
   addTask(task: Task): Observable<unknown> {
     return this.http.post<Task>(backend_tasks, task);
+  }
+
+  // Delete /tasks/:id
+  // Removes a task from the database
+  removeTaskByID(id: string) {
+    return this.http.delete<Task>(backend_tasks + id);
   }
 
   setTasks(tasks: Task[]) {
@@ -49,16 +54,6 @@ export class TaskService {
 
   getTaskByID(id: string): Task | null {
     return this.tasksSubject.getValue().find((task) => task._id === id) ?? null;
-  }
-
-  removeTask(taskTitle: string) {
-    let tasks: Task[] = this.tasksSubject.getValue();
-    tasks.splice(tasks.findIndex((task) => task.title === taskTitle), 1)
-  }
-
-  removeTaskByID(id: string) {
-    let tasks: Task[] = this.tasksSubject.getValue();
-    tasks.splice(tasks.findIndex((task) => task._id === id), 1)
   }
 
   getNextTaskID() {
