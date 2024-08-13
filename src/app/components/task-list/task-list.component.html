@@ -8,7 +8,7 @@
         <li *ngFor="let task of tasks">
             <div class="list-element" >
                 <app-task class="task" [task]="task"></app-task>
-                <app-remove-button (removeKey)="removeTask($event)" class="remove-button" [keyToRemove]="task.id"></app-remove-button>
+                <app-remove-button (removeKey)="removeTask($event)" class="remove-button" [keyToRemove]="task._id"></app-remove-button>
             </div>
             <hr/>
         </li>
