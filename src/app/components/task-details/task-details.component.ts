@@ -18,13 +18,13 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   id: string | null = null;
   task: Task | null = null;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private taskService: TaskService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.paramSubscription = this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = paramMap.get("id");
-      if(this.id){
-        this.taskService.getTask(this.id)?.pipe(take(1)).subscribe((task) => {
+      if (this.id) {
+        this.taskService.getTask(this.id).pipe(take(1)).subscribe((task) => {
           this.task = task;
         });
       }

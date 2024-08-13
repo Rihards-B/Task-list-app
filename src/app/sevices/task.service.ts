@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, first, Observable} from 'rxjs';
+import { BehaviorSubject, first, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Task } from '../models/task';
 import { backend_tasks } from '../constants/endpoints';
@@ -7,14 +7,14 @@ import { backend_tasks } from '../constants/endpoints';
 @Injectable({
   providedIn: 'root'
 })
-export class TaskService{
+export class TaskService {
   initialized: Boolean = false;
   tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   tasksCompleteSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   // Temporary variable to keep track of IDs, will be using the backend ones later
   lastTaskID: number = 0;
 
-  constructor(private http: HttpClient) {};
+  constructor(private http: HttpClient) { };
 
   // GET /tasks
   // Returns a list of all tasks
@@ -24,8 +24,8 @@ export class TaskService{
 
   // Get /tasks/:id
   // Finds and returns a task by ID
-  getTask(id: string): Observable<Task> | null {
-    return this.http.get<Task>(backend_tasks+id);
+  getTask(id: string): Observable<Task> {
+    return this.http.get<Task>(backend_tasks + id);
   }
 
   addTask(task: Task) {
@@ -48,7 +48,7 @@ export class TaskService{
   getTaskByID(id: string): Task | null {
     return this.tasksSubject.getValue().find((task) => task._id === id) ?? null;
   }
-  
+
   removeTask(taskTitle: string) {
     let tasks: Task[] = this.tasksSubject.getValue();
     tasks.splice(tasks.findIndex((task) => task.title === taskTitle), 1)
@@ -68,9 +68,9 @@ export class TaskService{
     let completedTasks: number = 0;
     let tasks: Task[] = this.tasksSubject.getValue();
     tasks.forEach((task) => {
-        if (task.status === "complete") {
-            completedTasks++;
-        }
+      if (task.status === "complete") {
+        completedTasks++;
+      }
     })
     return completedTasks;
   }
