@@ -15,30 +15,28 @@ import { Subscription } from 'rxjs';
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss'
 })
-export class AddTaskFormComponent implements OnInit, OnDestroy {
+export class AddTaskFormComponent implements OnDestroy {
   typeOptions: string[] = [
     "Story",
     "Task"
   ]
-  formGroup!: FormGroup;
+
+  formGroup: FormGroup = this.formBuilder.group({
+    title: ["", {
+      validators: [Validators.required,
+      this.taskFormValidationService.uniqueTitle(),
+      ]
+    }],
+    description: [""],
+    type: ["", { validators: [Validators.required] }]
+  });
+
   private postSubscription = Subscription.EMPTY;
 
   constructor(private formBuilder: FormBuilder,
     private taskService: TaskService,
     private taskFormValidationService: TaskFormValidationService,
     private router: Router) { }
-
-  ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      title: ["", {
-        validators: [Validators.required,
-        this.taskFormValidationService.uniqueTitle(),
-        ]
-      }],
-      description: [""],
-      type: ["", { validators: [Validators.required] }]
-    })
-  }
 
   ngOnDestroy(): void {
     this.postSubscription.unsubscribe();
