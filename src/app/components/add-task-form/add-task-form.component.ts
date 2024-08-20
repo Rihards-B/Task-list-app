@@ -46,7 +46,14 @@ export class AddTaskFormComponent implements OnDestroy {
     formGroup.markAllAsTouched();
     if (formGroup.valid) {
       let formResult = formGroup.value;
-      let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
+
+      let task: Task = {
+        title: formResult.title,
+        description: formResult.description,
+        type: formResult.type,
+        status: "incomplete"
+      };
+
       this.postSubscription = this.taskService.addTask(task).subscribe(() => [
         this.router.navigateByUrl("/")
       ]);
