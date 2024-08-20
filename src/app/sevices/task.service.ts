@@ -11,10 +11,8 @@ export class TaskService {
   initialized: Boolean = false;
   tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   tasksCompleteSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
-  // Temporary variable to keep track of IDs, will be using the backend ones later
-  lastTaskID: number = 0;
 
-  constructor(private http: HttpClient) { };
+  constructor(private http: HttpClient) {};
 
   // GET /tasks
   // Returns a list of all tasks
@@ -41,8 +39,6 @@ export class TaskService {
   }
 
   setTasks(tasks: Task[]) {
-    // Setting the starting point of manually created task IDs
-    this.lastTaskID = tasks.length;
     this.tasksSubject.next(tasks);
     this.tasksCompleteSubject.next(this.countCompletedTasks());
     this.initialized = true;
@@ -54,11 +50,6 @@ export class TaskService {
 
   getTaskByID(id: string): Task | null {
     return this.tasksSubject.getValue().find((task) => task._id === id) ?? null;
-  }
-
-  getNextTaskID() {
-    this.lastTaskID++;
-    return this.lastTaskID.toString();
   }
 
   // Refreshes the list of tasks stored in the service from DB
