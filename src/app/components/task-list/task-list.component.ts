@@ -21,7 +21,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
   tasksSubscription = Subscription.EMPTY;
   tasks: Task[] = [];
 
-  constructor(private http: HttpClient, private taskService: TaskService) { }
+  constructor(private http: HttpClient, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskService.refresh();
