@@ -14,7 +14,7 @@ export class TaskService {
   // Temporary variable to keep track of IDs, will be using the backend ones later
   lastTaskID: number = 0;
 
-  constructor(private http: HttpClient) { };
+  constructor(private http: HttpClient) {};
 
   // GET /tasks
   // Returns a list of all tasks
@@ -38,6 +38,12 @@ export class TaskService {
   // Removes a task from the database
   removeTaskByID(id: string) {
     return this.http.delete<Task>(backend_tasks + id);
+  }
+
+  // Update /tasks
+  // Updates an existing task
+  updateTask(task: Task) {
+    return this.http.put<Task>(backend_tasks, task);
   }
 
   setTasks(tasks: Task[]) {
