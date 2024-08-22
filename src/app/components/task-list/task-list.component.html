@@ -1,14 +1,15 @@
 <div>
     <div class="task-list-header">
         <h2>Tasks: </h2>
-        <p>Tasks completed: {{tasksCompleted}} / {{tasks.length}}</p>
+        <p>Tasks completed: {{tasksCompleted}} / {{(tasks$ | async)?.length}}</p>
     </div>
     <ul class="task-list">
         <hr/>
-        <li *ngFor="let task of tasks">
-            <div class="list-element" >
+        <li *ngFor="let task of tasks$ | async">
+            <div class="list-element">
                 <app-task class="task" [task]="task"></app-task>
-                <app-remove-button (removeKey)="removeTask($event)" class="remove-button" [keyToRemove]="task._id"></app-remove-button>
+                <app-remove-button (removeKey)="removeTask($event)" class="remove-button"
+                    [keyToRemove]="task._id"></app-remove-button>
             </div>
             <hr/>
         </li>
