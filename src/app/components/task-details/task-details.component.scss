@@ -1,6 +1,22 @@
 @use 'src/styles/colors.scss' as colors;
 
-.container {
+.card {
+    border-top: 4px colors.$fg-accent solid;
     background-color: colors.$bg-normal;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-title {
+    margin: 0;
+    padding: 1em 0 1em 0;
+    text-align: center;
+}
+
+.close-form {
+    padding-right: 0.5em;
+    align-self: flex-end;
+    font-size: 2rem;
+    text-decoration: none;
+    color: colors.$fg-accent;
 }

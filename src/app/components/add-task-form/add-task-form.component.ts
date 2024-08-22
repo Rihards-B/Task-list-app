@@ -1,57 +1,33 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnDestroy } from '@angular/core';
 import { TaskService } from '../../sevices/task.service';
 import { Task } from '../../models/task';
-import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.service';
-import { FormErrorComponent } from '../form-error/form-error.component';
-import { TaskListComponent } from '../task-list/task-list.component';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { TaskFormComponent } from '../task-form/task-form.component';
+import { formType } from 'src/app/constants/formType';
 
 @Component({
   selector: 'app-add-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, FormErrorComponent, RouterModule],
+  imports: [RouterModule, TaskFormComponent],
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss'
 })
-export class AddTaskFormComponent implements OnInit, OnDestroy {
-  typeOptions: string[] = [
-    "Story",
-    "Task"
-  ]
-  formGroup!: FormGroup;
+export class AddTaskFormComponent implements OnDestroy {
   private postSubscription = Subscription.EMPTY;
+  formType = formType;
 
-  constructor(private formBuilder: FormBuilder,
+  constructor(
     private taskService: TaskService,
-    private taskFormValidationService: TaskFormValidationService,
-    private router: Router) { }
-
-  ngOnInit(): void {
-    this.formGroup = this.formBuilder.group({
-      title: ["", {
-        validators: [Validators.required,
-        this.taskFormValidationService.uniqueTitle(),
-        ]
-      }],
-      description: [""],
-      type: ["", { validators: [Validators.required] }]
-    })
-  }
+    private router: Router) {}
 
   ngOnDestroy(): void {
     this.postSubscription.unsubscribe();
   }
 
-  submit(formGroup: FormGroup) {
-    formGroup.markAllAsTouched();
-    if (formGroup.valid) {
-      let formResult = formGroup.value;
-      let task: Task = new Task(formResult.title, formResult.description, formResult.type, "incomplete");
-      this.postSubscription = this.taskService.addTask(task).subscribe(() => [
-        this.router.navigateByUrl("/")
-      ]);
-    }
+  addTask(task: Task) {
+    this.postSubscription = this.taskService.addTask(task).subscribe(() => [
+      this.router.navigateByUrl("/")
+    ]);
   }
 }
