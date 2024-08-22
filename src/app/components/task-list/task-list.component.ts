@@ -22,6 +22,7 @@ export class TaskListComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient, private taskService: TaskService) {}
 
+
   ngOnInit(): void {
     this.taskService.refresh();
     this.completedTasksSubscription = this.taskService.tasksCompleteSubject.subscribe((completeCount) => {
@@ -34,6 +35,8 @@ export class TaskListComponent implements OnInit, OnDestroy {
   }
 
   removeTask(taskID: string) {
-    this.taskService.removeTaskByID(taskID);
+    this.deleteSubscription = this.taskService.removeTaskByID(taskID).subscribe(() => {
+      this.taskService.refresh();
+    });
   }
 }
