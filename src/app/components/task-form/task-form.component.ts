@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -9,11 +9,14 @@ import { EventEmitter } from '@angular/core';
 import { formType } from 'src/app/constants/formType';
 import { taskStatus, taskType } from 'src/app/constants/taskConstants';
 import { Task } from 'src/app/models/task';
+import { userService } from 'src/app/sevices/user.service';
+import { Observable, take } from 'rxjs';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, RouterModule],
+  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, RouterModule, CommonModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })
@@ -27,6 +30,7 @@ export class TaskFormComponent implements OnChanges {
   taskTypes = Object.values(taskType).filter(value => typeof value === 'string');
   taskStatuses = Object.values(taskStatus).filter(value => typeof value === 'string');
   formTypes = formType;
+  users$: Observable<User[]> = this.userService.getUsers();
 
   formGroup: FormGroup = this.formBuilder.group({
     title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]
@@ -35,6 +39,7 @@ export class TaskFormComponent implements OnChanges {
     type: ["", Validators.required],
     status: ["incomplete", Validators.required],
     createdOn: [formatDate(0, "yyyy-MM-dd", "en")],
+    assignedTo: ["UNASSIGNED", Validators.required],
     _id: [null]
   })
 
@@ -59,7 +64,8 @@ export class TaskFormComponent implements OnChanges {
   }
 
   constructor(private formBuilder: FormBuilder,
-    private taskFormValidationService: TaskFormValidationService) {};
+    private taskFormValidationService: TaskFormValidationService,
+    private userService: userService) {};
 
   submit(formGroup: FormGroup) {
     this.formSubmitted.emit(formGroup.value);

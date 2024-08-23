@@ -23,6 +23,18 @@
             <app-form-error [control]="formGroup.controls['type']">
             </app-form-error>
         </div>
+        <div>
+            <label for="assignedTo">Assigned To:</label><br>
+            <select formControlName="assignedTo">
+                @for (user of users$ | async; track user) {
+                <option [value]="user.username">
+                    {{user.first_name}} {{user.last_name}} {{user.username}}
+                </option>   
+                }
+            </select>
+            <app-form-error [control]="formGroup.controls['assignedTo']">
+            </app-form-error>
+        </div>
         @if(formType == formTypes.Edit) {
         <div>
             <label for="status">Status:</label><br>
