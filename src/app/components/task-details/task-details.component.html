@@ -1,8 +1,5 @@
 <div class="card">
     <a class="close-form" routerLink="/">x</a>
     <h1 class="dialog-title">Edit task</h1>
-    <!-- Only creating the form when we have task, otherwise validator dones't get task title -->
-    @if(this.task){
-        <app-task-form [formType]="formType.Edit" (formSubmitted)="saveTask($event)" [task]="this.task" [submitText]="'Save Task!'"></app-task-form>
-    }
+    <app-task-form [formType]="'Edit'" (formSubmitted)="saveTask($event)" [task]="this.task" [submitText]="'Save Task!'"></app-task-form>
 </div>
