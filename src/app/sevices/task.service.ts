@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, take, Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, take, Observable, catchError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Task } from '../models/task';
 import { backend_tasks } from '../constants/endpoints';
+import { ErrorHandlingService } from './errorHandling.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class TaskService {
   tasksSubject: BehaviorSubject<Task[]> = new BehaviorSubject<Task[]>([]);
   tasksCompleteSubject: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 
-  constructor(private http: HttpClient) {};
+  constructor(private http: HttpClient, private errorHandlingService: ErrorHandlingService) {};
 
   // GET /tasks
   // Returns a list of all tasks
@@ -23,7 +24,7 @@ export class TaskService {
   // Get /tasks/:id
   // Finds and returns a task by ID
   getTask(id: string): Observable<Task> {
-    return this.http.get<Task>(backend_tasks + id);
+    return this.http.get<Task>(backend_tasks + id).pipe(catchError(this.errorHandlingService.handleError));
   }
 
   // Post /tasks
@@ -36,6 +37,12 @@ export class TaskService {
   // Removes a task from the database
   removeTaskByID(id: string) {
     return this.http.delete<Task>(backend_tasks + id);
+  }
+
+  // Update /tasks
+  // Updates an existing task
+  updateTask(task: Task) {
+    return this.http.put<Task>(backend_tasks, task);
   }
 
   setTasks(tasks: Task[]) {

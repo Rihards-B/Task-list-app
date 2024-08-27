@@ -1,58 +1,10 @@
 @use 'src/styles/colors.scss' as colors;
 
-.flex {
-  display: flex;
-  flex-direction: column;
-}
-
-.add-task {
+.card {
   border-top: 4px colors.$fg-accent solid;
   background-color: colors.$bg-normal;
   display: flex;
   flex-direction: column;
-}
-
-form {
-  justify-content: start;
-  padding: 0em 1em 0em 1em;
-  width: 35vw;
-  height: 65vh;
-}
-
-form > div {
-  width: 80%;
-  margin-top: 2vh;
-}
-
-label {
-  padding-top: 3vh;
-}
-
-label, input, select {
-  font-size: 2em;
-  font-weight: 500;
-}
-
-textarea, input, select {
-  width: 100%;
-}
-
-textarea {
-  font-size: 1.2em;
-  height: 15vh;
-  resize: none;
-}
-
-.button {
-  width: 100%;
-  height: 100%;
-  background-color: colors.$success;
-  font-size: 3rem;
-  color: white;
-}
-
-.button:hover{
-  background-color: colors.$success-indent;
 }
 
 .dialog-title {
@@ -61,30 +13,10 @@ textarea {
   text-align: center;
 }
 
-.round {
-  border-radius: 1rem;
-}
-
-.ng-invalid:not(form).ng-touched:not(form) {
-  border: colors.$failure solid 3px;
-}
-
-button:disabled {
-  background-color: gray;
-}
-
-button:disabled:hover {
-  background-color: gray
-}
-
 .close-form {
   padding-right: 0.5em;
   align-self: flex-end;
   font-size: 2rem;
   text-decoration: none;
   color: colors.$fg-accent;
-}
-
-.close-form:hover {
-  color: colors.$fg-primary;
 }

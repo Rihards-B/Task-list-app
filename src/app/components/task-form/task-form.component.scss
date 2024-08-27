@@ -1,0 +1,73 @@
+@use 'src/styles/colors.scss' as colors;
+
+.flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form {
+    justify-content: start;
+    padding: 0em 1em 3em 1em;
+    width: 35vw;
+}
+
+form>div {
+    width: 80%;
+    margin-top: 2vh;
+}
+
+label {
+    padding-top: 3vh;
+}
+
+label,
+input,
+select {
+    font-size: 2em;
+    font-weight: 500;
+}
+
+textarea,
+input,
+select {
+    width: 100%;
+}
+
+textarea {
+    font-size: 1.2em;
+    height: 15vh;
+    resize: none;
+}
+
+.button {
+    width: 100%;
+    height: 100%;
+    background-color: colors.$success;
+    font-size: 3rem;
+    color: white;
+}
+
+.button:hover {
+    background-color: colors.$success-indent;
+}
+
+.round {
+    border-radius: 1rem;
+}
+
+.ng-invalid:not(form).ng-touched:not(form) {
+    border: colors.$failure solid 3px;
+}
+
+button:disabled {
+    background-color: gray;
+}
+
+button:disabled:hover {
+    background-color: gray
+}
+
+.close-form:hover {
+    color: colors.$fg-primary;
+}
