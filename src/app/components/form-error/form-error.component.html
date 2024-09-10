@@ -1,10 +1,16 @@
 @if(control) {
-    @if(control.invalid && control.touched || control.dirty) {
+    @if(control.invalid && control.touched || control.dirty ) {
         @if(control.errors?.["required"]) {
             <small>Field required!</small>
         }
         @if(control.errors?.["uniqueTitle"]) {
             <small>Title must be unique!</small>
+        }
+        @if(control.errors?.["minlength"] && fieldName) {
+            <small>{{fieldName}} must be longer than {{control.errors?.["minlength"].requiredLength}} symbols</small>
+        }
+        @if(control.errors?.["maxlength"] && fieldName) {
+            <small>{{fieldName}} must be longer than {{control.errors?.["maxlength"].requiredLength}} symbols</small>
         }
     }
 }

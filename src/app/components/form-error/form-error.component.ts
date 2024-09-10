@@ -10,4 +10,5 @@ import { AbstractControl, FormControl } from '@angular/forms';
 })
 export class FormErrorComponent {
   @Input() control: AbstractControl | null = null;
+  @Input() fieldName: string | null = null;
 }
