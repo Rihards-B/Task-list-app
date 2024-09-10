@@ -1,11 +1,9 @@
 import { HttpClient } from "@angular/common/http";
-import { Inject, Injectable, OnInit, PLATFORM_ID } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { authDetails } from "../models/authDetails";
 import { authStatus } from "../models/authStatus";
 import { backend_auth } from "../constants/endpoints";
-import { BehaviorSubject, Observable, shareReplay, tap } from "rxjs";
-import { isPlatformBrowser } from "@angular/common";
-import { User } from "../models/user";
+import { Observable, tap } from "rxjs";
 import { UserService } from "./user.service";
 
 @Injectable({
@@ -13,13 +11,7 @@ import { UserService } from "./user.service";
 })
 export class AuthService {
 
-    constructor(private http: HttpClient,
-        @Inject(PLATFORM_ID) private platformId: Object,
-        private userService: UserService) {
-        if (isPlatformBrowser(platformId)) {
-            this.userService.isLoggedIn.next(sessionStorage.getItem("isLoggedIn") ? true : false);
-        }
-    };
+    constructor(private http: HttpClient, private userService: UserService) {};
 
     // POST /login
     // returns a JWT to store in cookies
@@ -29,7 +21,6 @@ export class AuthService {
                 next: (response) => {
                     if (response.isLoggedIn) {
                         sessionStorage.setItem("isLoggedIn", "true");
-                        sessionStorage.setItem("username", authDetails.username);
                         this.userService.isLoggedIn.next(true);
                         this.userService.updateCurrentUser();
                     }
@@ -45,7 +36,6 @@ export class AuthService {
             tap({
                 next: () => {
                     sessionStorage.removeItem("isLoggedIn");
-                    sessionStorage.removeItem("username");
                     this.userService.isLoggedIn.next(false);
                     window.location.reload();
                 },
