@@ -5,11 +5,12 @@ import { TaskDetailsComponent } from './components/task-details/task-details.com
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { LoginComponent } from './components/login/login.component';
 import { canActivateLoggedIn, canActivateIsLoggedIn } from './guards/auth.guard';
+import { TaskResolver } from './resolvers/taskResolver';
 
 export const routes: Routes = [
     { path: "", component: TasksCardComponent, canActivate: [canActivateLoggedIn] },
     { path: "add-task", component: AddTaskFormComponent },
-    { path: ":id/details", component: TaskDetailsComponent },
+    { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver } },
     { path: "login", component: LoginComponent, canActivate: [canActivateIsLoggedIn] },
     { path: "404", component: PageNotFoundComponent },
     { path: "**", redirectTo: "/404" }

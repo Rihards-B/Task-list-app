@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, ParamMap, ActivatedRoute, RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { TaskService } from 'src/app/sevices/task.service';
 import { TaskComponent } from '../task/task.component';
-import { Subject, Subscription, take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 import { Task } from 'src/app/models/task';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { taskType } from 'src/app/constants/taskConstants';
-import { formType } from 'src/app/constants/formType';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-task-details',
   standalone: true,
-  imports: [TaskComponent, TaskFormComponent, RouterModule],
+  imports: [TaskComponent, TaskFormComponent, RouterModule, CommonModule],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss'
 })
@@ -22,7 +22,6 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   id: string | null = null;
   task: Task | null = null;
   taskTypes = Object.values(taskType);
-  formType = formType;
 
   constructor(private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -30,14 +29,9 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.paramSubscription = this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
-      this.id = paramMap.get("id");
-      if (this.id) {
-        this.taskService.getTask(this.id).pipe(take(1)).subscribe((task) => {
-          this.task = task;
-        });
-      }
-    });
+    this.activatedRoute.data.pipe(take(1)).subscribe(({ task }) => {
+      this.task = task;
+    })
   }
 
   ngOnDestroy(): void {

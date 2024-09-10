@@ -4,7 +4,6 @@ import { Task } from '../../models/task';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskFormComponent } from '../task-form/task-form.component';
-import { formType } from 'src/app/constants/formType';
 
 @Component({
   selector: 'app-add-task-form',
@@ -15,7 +14,6 @@ import { formType } from 'src/app/constants/formType';
 })
 export class AddTaskFormComponent implements OnDestroy {
   private postSubscription = Subscription.EMPTY;
-  formType = formType;
 
   constructor(
     private taskService: TaskService,

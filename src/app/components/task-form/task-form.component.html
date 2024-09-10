@@ -35,7 +35,7 @@
             <app-form-error [control]="formGroup.controls['assignedTo']">
             </app-form-error>
         </div>
-        @if(formType == formTypes.Edit) {
+        @if(formType == "Edit") {
         <div>
             <label for="status">Status:</label><br>
             <select formControlName="status">
@@ -61,7 +61,7 @@
             </app-form-error>
         </div>
         }
-        @if(formType == formTypes.Create || editing){
+        @if(formType == "Create" || editing){
             <div>
                 <button #submitButton type="submit" class="button round" [disabled]="!formGroup.valid">{{submitText}}</button>
             </div>
