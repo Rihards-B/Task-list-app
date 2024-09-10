@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <ul>
+        <li>
+            <a href="#">Home</a>
+        </li>
+        <li>
+            @if (!(currentUser$ | async)) {
+                <a routerLink="login">Login</a>
+            } @else {
+                <p class="username">
+                    {{(currentUser$ | async)?.first_name}}
+                    {{(currentUser$ | async)?.last_name}}
+                </p>
+                <a href="#" (click)="logout()">Logout</a>
+            }
+        </li>
+    </ul>
+</nav>
