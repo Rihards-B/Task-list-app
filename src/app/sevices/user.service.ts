@@ -1,21 +1,20 @@
-import { inject, Injectable, OnInit, PLATFORM_ID } from "@angular/core";
-import { BehaviorSubject, catchError, Observable, ReplaySubject, Subject, take } from "rxjs";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { BehaviorSubject, Observable, ReplaySubject, Subject, take } from "rxjs";
 import { User } from "../models/user";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { backend_users } from "../constants/endpoints";
 import { isPlatformBrowser } from "@angular/common";
-import { AuthService } from "./auth.service";
-
 @Injectable({
     providedIn: 'root'
 })
-export class UserService implements OnInit {
+export class UserService {
     isLoggedIn = new BehaviorSubject<boolean>(false);
     currentUserSubject: Subject<User> = new ReplaySubject<User>();
 
-    constructor(private http: HttpClient) {}
-
-    ngOnInit(): void {
+    constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+        if (isPlatformBrowser(this.platformId)) {
+            this.isLoggedIn.next(sessionStorage.getItem("isLoggedIn") ? true : false);
+        }
         this.updateCurrentUser();
     }
 
