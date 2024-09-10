@@ -1,0 +1,24 @@
+<div class="login">
+    <form [formGroup]="formGroup" (submit)="login()">
+        <div>
+            <label for="username">Username:</label><br>
+            <input type="text" formControlName="username"><br>
+            <app-form-error fieldName="Username" [control]="formGroup.controls['username']">
+            </app-form-error>
+        </div>
+        <div>
+            <label for="password">Password:</label><br>
+            <input type="password" formControlName="password"><br>
+            <app-form-error fieldName="Password" [control]="formGroup.controls['password']">
+            </app-form-error>
+        </div>
+        <div class="centered">
+            <button #submitButton type="submit" [disabled]="!formGroup.valid">Login</button>
+        </div>
+    </form>
+    @if (failedLoginSubject | async) {
+        <div class="centered error">
+            <span>Invalid credentials!</span>
+        </div>
+    }
+</div>
