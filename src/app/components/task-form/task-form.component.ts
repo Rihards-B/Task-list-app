@@ -9,7 +9,7 @@ import { EventEmitter } from '@angular/core';
 import { formType } from 'src/app/constants/formType';
 import { taskStatus, taskType } from 'src/app/constants/taskConstants';
 import { Task } from 'src/app/models/task';
-import { userService } from 'src/app/sevices/user.service';
+import { UserService } from 'src/app/sevices/user.service';
 import { Observable, take } from 'rxjs';
 import { User } from 'src/app/models/user';
 
@@ -65,7 +65,7 @@ export class TaskFormComponent implements OnChanges {
 
   constructor(private formBuilder: FormBuilder,
     private taskFormValidationService: TaskFormValidationService,
-    private userService: userService) {};
+    private userService: UserService) {};
 
   submit(formGroup: FormGroup) {
     this.formSubmitted.emit(formGroup.value);
