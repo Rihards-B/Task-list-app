@@ -30,7 +30,6 @@ export class TaskFormComponent implements OnInit {
   taskTypes = Object.values(taskType).filter(value => typeof value === 'string');
   taskStatuses = Object.values(taskStatus).filter(value => typeof value === 'string');
   users$: Observable<User[]> = this.userService.getUsers();
-
   formGroup: FormGroup = this.formBuilder.group({
     title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]
     ],
