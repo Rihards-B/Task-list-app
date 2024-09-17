@@ -6,12 +6,14 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LoginComponent } from './components/login/login.component';
 import { canActivateLoggedIn, canActivateIsLoggedIn } from './guards/auth.guard';
 import { TaskResolver } from './resolvers/taskResolver';
+import { RegisterComponent } from './components/register/register.component';
 
 export const routes: Routes = [
     { path: "", component: TasksCardComponent, canActivate: [canActivateLoggedIn] },
     { path: "add-task", component: AddTaskFormComponent },
     { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver } },
     { path: "login", component: LoginComponent, canActivate: [canActivateIsLoggedIn] },
+    { path: "register", component: RegisterComponent, canActivate: [canActivateIsLoggedIn] },
     { path: "404", component: PageNotFoundComponent },
     { path: "**", redirectTo: "/404" }
 ];

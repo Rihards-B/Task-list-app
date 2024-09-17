@@ -1,0 +1,35 @@
+<div class="register">
+    <form [formGroup]="formGroup" (submit)="Register()">
+        <div>
+            <label for="username">Username:</label><br>
+            <input type="text" formControlName="username"><br>
+            <app-form-error fieldName="Username" [control]="formGroup.controls['username']">
+            </app-form-error>
+        </div>
+        <div>
+            <label for="password">Password:</label><br>
+            <input type="password" formControlName="password"><br>
+            <app-form-error fieldName="Password" [control]="formGroup.controls['password']">
+            </app-form-error>
+        </div>
+        <div>
+            <label for="first_name">First name:</label><br>
+            <input type="first_name" formControlName="first_name"><br>
+            <app-form-error fieldName="first_name" [control]="formGroup.controls['first_name']">
+            </app-form-error>
+        </div>
+        <div>
+            <label for="last_name">Last name:</label><br>
+            <input type="last_name" formControlName="last_name"><br>
+            <app-form-error fieldName="last_name" [control]="formGroup.controls['last_name']">
+            </app-form-error>
+        </div>
+        <div class="centered">
+            <button #submitButton type="submit" [disabled]="!formGroup.valid">Login</button>
+        </div>
+    </form>
+    <div class="centered error">
+        <span>{{registerErrorsSubject | async}}</span>
+    </div>
+
+</div>

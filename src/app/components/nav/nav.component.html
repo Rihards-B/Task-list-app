@@ -5,6 +5,7 @@
         </li>
         <li>
             @if (!(currentUser$ | async)) {
+                <a routerLink="register">Register</a>
                 <a routerLink="login">Login</a>
             } @else {
                 <p class="username">
