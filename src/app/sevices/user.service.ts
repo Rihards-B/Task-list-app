@@ -1,19 +1,19 @@
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { BehaviorSubject, Observable, ReplaySubject, Subject, take } from "rxjs";
-import { User } from "../models/user";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { User } from "../models/user.model";
+import { HttpClient } from "@angular/common/http";
 import { backend_users } from "../constants/endpoints";
 import { isPlatformBrowser } from "@angular/common";
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    isLoggedIn = new BehaviorSubject<boolean>(false);
+    isLoggedInSubject = new BehaviorSubject<boolean>(false);
     currentUserSubject: Subject<User> = new ReplaySubject<User>();
 
     constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
         if (isPlatformBrowser(this.platformId)) {
-            this.isLoggedIn.next(sessionStorage.getItem("isLoggedIn") ? true : false);
+            this.isLoggedInSubject.next(sessionStorage.getItem("isLoggedIn") ? true : false);
         }
         this.updateCurrentUser();
     }
@@ -31,7 +31,7 @@ export class UserService {
     }
 
     updateCurrentUser() {
-        this.isLoggedIn.asObservable().pipe(take(1)).subscribe((isLoggedIn) => {
+        this.isLoggedInSubject.asObservable().pipe(take(1)).subscribe((isLoggedIn) => {
             if (isLoggedIn) {
                 this.getCurrentUser().pipe(take(1)).subscribe(user => {
                     this.currentUserSubject.next(user);
