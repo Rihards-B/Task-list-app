@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, take, Observable, catchError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Task } from '../models/task';
+import { HttpClient } from '@angular/common/http';
+import { Task } from '../models/task.model';
 import { backend_tasks } from '../constants/endpoints';
 import { ErrorHandlingService } from './errorHandling.service';
 
@@ -29,7 +29,7 @@ export class TaskService {
 
   // Post /tasks
   // Adds a task to the database
-  addTask(task: Task): Observable<unknown> {
+  addTask(task: Task): Observable<Task> {
     return this.http.post<Task>(backend_tasks, task);
   }
 

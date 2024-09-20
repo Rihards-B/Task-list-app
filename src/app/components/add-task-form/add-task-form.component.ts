@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TaskService } from '../../sevices/task.service';
-import { Task } from '../../models/task';
+import { Task } from '../../models/task.model';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskFormComponent } from '../task-form/task-form.component';
