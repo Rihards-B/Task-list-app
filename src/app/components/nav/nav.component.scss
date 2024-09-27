@@ -1,0 +1,34 @@
+@use 'src/styles/colors.scss' as colors;
+
+.navbar {
+    background-color: colors.$bg-normal;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+ul li:last-child {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+a {
+    font-size: 1.3rem;
+    padding: 1rem;
+    float: left;
+    text-decoration: none;
+    color: colors.$fg-accent;
+}
+
+.username {
+    font-size: 1.2rem;
+    color: colors.$fg-primary
+}

@@ -1,4 +1,3 @@
-
 import { CommonModule, formatDate } from '@angular/common';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,10 +7,10 @@ import { FormErrorComponent } from '../form-error/form-error.component';
 import { TaskListComponent } from '../task-list/task-list.component';
 import { EventEmitter } from '@angular/core';
 import { taskStatus, taskType } from 'src/app/constants/taskConstants';
-import { Task } from 'src/app/models/task';
-import { userService } from 'src/app/sevices/user.service';
+import { Task } from 'src/app/models/task.model';
+import { UserService } from 'src/app/sevices/user.service';
 import { Observable, take } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-task-form',
@@ -44,7 +43,7 @@ export class TaskFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private taskFormValidationService: TaskFormValidationService,
-    private userService: userService) {};
+    private userService: UserService) {};
 
   ngOnInit(): void {
     if (this.task) {
