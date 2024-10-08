@@ -1,7 +1,7 @@
 import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
-import { BehaviorSubject, Observable, ReplaySubject, Subject, take } from "rxjs";
+import { BehaviorSubject, Observable, ReplaySubject, Subject, take, tap } from "rxjs";
 import { User } from "../models/user";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { backend_users } from "../constants/endpoints";
 import { isPlatformBrowser } from "@angular/common";
 @Injectable({
@@ -24,10 +24,27 @@ export class UserService {
         return this.http.get<User[]>(backend_users);
     }
 
-    // GET /users
+    // GET /users/current
     // Returns the current user, based on the JWT token in cookies
     getCurrentUser(): Observable<User> {
         return this.http.get<User>(backend_users + "current");
+    }
+
+    // GET /users/<id>
+    // Looks for a user with the provided id
+    getUser(id: string): Observable<User> {
+        return this.http.get<User>(backend_users + id);
+    }
+
+    // PUT /users/<id>
+    // Updates the user with the user data from body,
+    // Returns the updated user
+    updateUser(user: User, userId: string): Observable<User> {
+        return this.http.put<User>(backend_users + userId, user).pipe(tap({
+            next: () => {
+                this.updateCurrentUser();
+            }
+        }))
     }
 
     updateCurrentUser() {

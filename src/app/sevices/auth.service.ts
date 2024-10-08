@@ -33,7 +33,7 @@ export class AuthService {
 
     // GET /logout
     // Removes the JWT from cookies
-    logout(): Observable<any> {
+    logout(): Observable<Object> {
         return this.http.get(backend_auth + "logout").pipe(
             tap({
                 next: () => {
@@ -41,7 +41,9 @@ export class AuthService {
                     this.userService.isLoggedIn.next(false);
                     window.location.reload();
                 },
-                error: () => {}
+                error: (error) => {
+                    console.log(error)
+                }
             })
         );
     }
