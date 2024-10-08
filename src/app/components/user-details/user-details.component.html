@@ -1,0 +1,44 @@
+<div class="user-details">
+    <form [formGroup]="userFormGroup">
+        <div>
+            <label for="username">Username:</label><br>
+            <input type="text" formControlName="username">
+        </div>
+        <div>
+            <label for="first_name">First name:</label><br>
+            <input type="text" formControlName="first_name">
+        </div>
+        <div>
+            <label for="last_name">Last name:</label><br>
+            <input type="text" formControlName="last_name">
+        </div>
+        <div>
+            <label for="Roles">
+                Roles: <br>
+                    @for (role of user?.roles; track role) {
+                    <ng-container formArrayName="roles">
+                        <div class="role" >
+                            <app-remove-button text="X" [keyToRemove]="role._id" (removeKey)="removeRole($event)" [disabled]="role.role_name==='User'"></app-remove-button>
+                            <app-role [role]="role"></app-role>
+                        </div>
+                    </ng-container>
+                }
+            </label><br>
+            @if (unusedRoles && unusedRoles.length > 0) {
+                <div [formGroup]="addRoleFormGroup">
+                    <label>Add Role: </label>
+                    <select formControlName="add_role" (change)="addRole()">
+                        @for (role of unusedRoles; track role) {
+                        <option [value]="role._id">
+                            {{role.role_name}}
+                        </option>   
+                        }
+                    </select>
+                </div>
+            }
+        </div>
+        <div class="submit-button">
+            <button (click)="updateUser()">Save changes</button>
+        </div>
+    </form>
+</div>

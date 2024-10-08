@@ -8,11 +8,11 @@
                 <a routerLink="register">Register</a>
                 <a routerLink="login">Login</a>
             } @else {
-                <p class="username">
+                <a class="username" [routerLink]="'/users/' + (currentUser$ | async)?._id">
                     {{(currentUser$ | async)?.first_name}}
                     {{(currentUser$ | async)?.last_name}}
-                </p>
-                <a href="#" (click)="logout()">Logout</a>
+                </a>
+                <a id="logout" (click)="logout()">Logout</a>
             }
         </li>
     </ul>

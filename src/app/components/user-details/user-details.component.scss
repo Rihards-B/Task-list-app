@@ -1,0 +1,28 @@
+.role {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+form, .submit-button {
+    display: flex;
+    flex-direction: column;
+}
+
+.submit-button {
+    margin-top: 2rem;
+    align-items: center;
+}
+
+input, select, .user-details, .submit-button {
+    width: 100%;
+    font-size: 2rem;
+}
+
+button {
+    font-size: inherit;
+}
+
+button:disabled {
+    background-color: gray;
+}
