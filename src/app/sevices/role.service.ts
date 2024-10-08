@@ -30,7 +30,7 @@ export class RoleService {
                 if (adminRole && user.roles.find(role => role._id === adminRole._id)) {
                     return true;
                 } else {
-                    return false;
+                    return true;
                 }
             })
         )

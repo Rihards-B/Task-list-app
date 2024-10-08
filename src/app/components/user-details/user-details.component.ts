@@ -20,6 +20,7 @@ export class UserDetailsComponent implements OnInit {
   roles: Role[] | undefined = undefined;
   unusedRoles: Role[] | undefined = undefined;
   userRoles: Subject<Role[]> = new BehaviorSubject<Role[]>([]);
+  userIsAdmin: boolean = false;
   userFormGroup: FormGroup = this.formBuilder.group({
     first_name: [""],
     last_name: [""],
@@ -38,9 +39,13 @@ export class UserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.pipe(take(1)).subscribe(({ user, roles }) => {
       this.user = user;
-      console.log(this.user);
       this.roles = roles;
       this.updateUnusedRoles();
+      if (this.user?.roles.find(role => role.role_name === "Admin")) {
+        this.userIsAdmin = true;
+      } else {
+        this.userFormGroup.disable();
+      }
       if (this.user) {
         this.userFormGroup.patchValue(this.user);
       }
