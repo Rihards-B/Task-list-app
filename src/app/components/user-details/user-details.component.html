@@ -18,27 +18,29 @@
                     @for (role of user?.roles; track role) {
                     <ng-container formArrayName="roles">
                         <div class="role" >
-                            <app-remove-button text="X" [keyToRemove]="role._id" (removeKey)="removeRole($event)" [disabled]="role.role_name==='User'"></app-remove-button>
+                            <app-remove-button text="X" [keyToRemove]="role._id" (removeKey)="removeRole($event)" [disabled]="role.role_name==='User' || !userIsAdmin"></app-remove-button>
                             <app-role [role]="role"></app-role>
                         </div>
                     </ng-container>
                 }
             </label><br>
-            @if (unusedRoles && unusedRoles.length > 0) {
-                <div [formGroup]="addRoleFormGroup">
-                    <label>Add Role: </label>
-                    <select formControlName="add_role" (change)="addRole()">
-                        @for (role of unusedRoles; track role) {
-                        <option [value]="role._id">
-                            {{role.role_name}}
-                        </option>   
-                        }
-                    </select>
+            @if (user && userIsAdmin) {
+                @if (unusedRoles && unusedRoles.length > 0) {
+                    <div [formGroup]="addRoleFormGroup">
+                        <label>Add Role: </label>
+                        <select formControlName="add_role" (change)="addRole()">
+                            @for (role of unusedRoles; track role) {
+                            <option [value]="role._id">
+                                {{role.role_name}}
+                            </option>   
+                            }
+                        </select>
+                    </div>
+                }
+                <div class="submit-button">
+                    <button (click)="updateUser()">Save changes</button>
                 </div>
             }
-        </div>
-        <div class="submit-button">
-            <button (click)="updateUser()">Save changes</button>
         </div>
     </form>
 </div>
