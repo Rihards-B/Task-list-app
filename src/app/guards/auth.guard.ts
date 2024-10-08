@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from "@ang
 import { inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 
-export const canActivateLoggedIn: CanActivateFn = (
+export const loggedInGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
 ) => {
@@ -14,7 +14,7 @@ export const canActivateLoggedIn: CanActivateFn = (
     }
 };
 
-export const canActivateIsLoggedIn: CanActivateFn = (
+export const blockLoggedInUserGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
 ) => {

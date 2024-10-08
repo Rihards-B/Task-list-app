@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import { HttpClient } from '@angular/common/http';
 import { AuthService } from 'src/app/sevices/auth.service';
 import { Router } from '@angular/router';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { UserService } from 'src/app/sevices/user.service';
 
 @Component({
   selector: 'app-login',
@@ -22,14 +22,16 @@ export class LoginComponent {
   })
 
   constructor(private formBuilder: FormBuilder,
-    private http: HttpClient,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router) {}
 
   login() {
     this.authService.login(this.formGroup.value).subscribe((response) => {
       if (response.isLoggedIn === true) {
         this.router.navigateByUrl("/");
+        this.userService.currentUserSubject.next(response.user);
+        this.userService.isLoggedInSubject.next(true);
       } else {
         this.failedLoginSubject.next(true);
       }
