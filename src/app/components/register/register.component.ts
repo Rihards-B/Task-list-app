@@ -6,6 +6,8 @@ import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { AuthService } from 'src/app/sevices/auth.service';
 import { Router } from '@angular/router';
 import { PasswordsMatch } from 'src/app/validators/matching.validator';
+import { UserService } from 'src/app/sevices/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
@@ -24,11 +26,29 @@ export class RegisterComponent {
     last_name: ["", [Validators.required, Validators.maxLength(64)]]
   })
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {}
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private userService: UserService, private router: Router) {}
 
   Register() {
     if (this.formGroup.valid) {
-      this.authService.Register(this.formGroup.value, this.registerErrorsSubject).subscribe();
+      this.authService.Register(this.formGroup.value, this.registerErrorsSubject).pipe(
+        tap({
+          next: (response) => {
+            if (response.isLoggedIn) {
+              sessionStorage.setItem("isLoggedIn", "true");
+              this.userService.isLoggedInSubject.next(true);
+              this.userService.updateCurrentUser();
+              this.router.navigateByUrl("/");
+            }
+          },
+          error: (response) => {
+            if (response instanceof HttpErrorResponse) {
+              if (response.status === 400) {
+                this.registerErrorsSubject.next(response.error.messages);
+              }
+            }
+          }
+        })
+      ).subscribe();
     }
   }
 }
