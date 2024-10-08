@@ -13,19 +13,25 @@
             </app-form-error>
         </div>
         <div>
+            <label for="confirm_password">Confirm password:</label><br>
+            <input type="password" formControlName="confirm_password"><br>
+            <app-form-error fieldName="Confirm password" [control]="formGroup.controls['confirm_password']">
+            </app-form-error>
+        </div>
+        <div>
             <label for="first_name">First name:</label><br>
             <input type="first_name" formControlName="first_name"><br>
-            <app-form-error fieldName="first_name" [control]="formGroup.controls['first_name']">
+            <app-form-error fieldName="First name" [control]="formGroup.controls['first_name']">
             </app-form-error>
         </div>
         <div>
             <label for="last_name">Last name:</label><br>
             <input type="last_name" formControlName="last_name"><br>
-            <app-form-error fieldName="last_name" [control]="formGroup.controls['last_name']">
+            <app-form-error fieldName="Last name" [control]="formGroup.controls['last_name']">
             </app-form-error>
         </div>
         <div class="centered">
-            <button #submitButton type="submit" [disabled]="!formGroup.valid">Login</button>
+            <button #submitButton type="submit" >Login</button>
         </div>
     </form>
     <div class="centered error">
