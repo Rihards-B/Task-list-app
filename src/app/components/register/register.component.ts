@@ -28,9 +28,9 @@ export class RegisterComponent {
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private userService: UserService, private router: Router) {}
 
-  Register() {
+  register() {
     if (this.formGroup.valid) {
-      this.authService.Register(this.formGroup.value, this.registerErrorsSubject).pipe(
+      this.authService.register(this.formGroup.value, this.registerErrorsSubject).pipe(
         tap({
           next: (response) => {
             if (response.isLoggedIn) {

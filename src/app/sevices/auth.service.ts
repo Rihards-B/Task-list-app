@@ -44,7 +44,7 @@ export class AuthService {
 
     // POST /register
     // Registers a user and logs them in
-    Register(user: User, registerErrorsSubject: Subject<string[]>): Observable<AuthStatus> {
+    register(user: User, registerErrorsSubject: Subject<string[]>): Observable<AuthStatus> {
         return this.http.post<AuthStatus>(backend_auth + "register", user);
     }
 }
