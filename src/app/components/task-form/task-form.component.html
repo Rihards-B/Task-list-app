@@ -1,22 +1,22 @@
 @if (formGroup) {
     <form class="flex form" [formGroup]="formGroup" (ngSubmit)="submit(formGroup)">
         <div>
-            <label for="title">Title:</label><br>
+            <label for="title">{{'title' | translate}}:</label><br>
             <input type="text" formControlName="title">
             <app-form-error [control]="formGroup.controls['title']">
             </app-form-error>
         </div>
         <div>
-            <label for="description">Description:</label><br>
+            <label for="description">{{'description' | translate}}:</label><br>
             <textarea formControlName="description">
             </textarea>
         </div>
         <div>
-            <label for="type">Type:</label><br>
+            <label for="type">{{'type' | translate}}:</label><br>
             <select formControlName="type">
                 @for (type of taskTypes; track type) {
                 <option [value]="type">
-                    {{type}}
+                    {{type.toString().toLowerCase()| translate}}
                 </option>   
                 }
             </select>
@@ -24,7 +24,7 @@
             </app-form-error>
         </div>
         <div>
-            <label for="assignedTo">Assigned To:</label><br>
+            <label for="assignedTo">{{'assigned_to' | translate}}:</label><br>
             <select formControlName="assignedTo">
                 @for (user of users$ | async; track user) {
                 <option [value]="user.username">
@@ -37,11 +37,11 @@
         </div>
         @if(formType == "Edit") {
         <div>
-            <label for="status">Status:</label><br>
+            <label for="status">{{'status' | translate}}:</label><br>
             <select formControlName="status">
                 @for (status of taskStatuses; track status) {
                 <option [value]="status">
-                    {{status}}
+                    {{status.toString().toLowerCase() | translate}}
                 </option>   
                 }
             </select>
@@ -49,7 +49,7 @@
             </app-form-error>
         </div>
         <div>
-            <label for="createdOn">Created On:</label><br>
+            <label for="createdOn">{{'created_on' | translate}}:</label><br>
             <input type="datetime" formControlName="createdOn">
             <app-form-error [control]="formGroup.controls['createdOn']">
             </app-form-error>
@@ -63,11 +63,11 @@
         }
         @if(formType == "Create" || editing){
             <div>
-                <button #submitButton type="submit" class="button round" [disabled]="!formGroup.valid">{{submitText}}</button>
+                <button #submitButton type="submit" class="button round" [disabled]="!formGroup.valid">{{submitText | translate}}</button>
             </div>
         } @else {
             <div>
-                <button type="button" class="button round" (click)="enableEdit()">Edit</button>
+                <button type="button" class="button round" (click)="enableEdit()">{{'edit' | translate}}</button>
             </div>
         }
     </form>

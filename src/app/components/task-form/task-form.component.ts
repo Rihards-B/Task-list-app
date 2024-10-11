@@ -11,11 +11,12 @@ import { Task } from 'src/app/models/task';
 import { UserService } from 'src/app/sevices/user.service';
 import { Observable, take } from 'rxjs';
 import { User } from 'src/app/models/user';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, RouterModule, CommonModule],
+  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, RouterModule, CommonModule, TranslateModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })

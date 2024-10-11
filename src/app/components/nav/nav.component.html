@@ -1,18 +1,19 @@
 <nav class="navbar">
     <ul>
         <li>
-            <a href="#">Home</a>
+            <a href="#">{{'home' | translate}}</a>
         </li>
         <li>
+            <app-language-selector></app-language-selector>
             @if (!(currentUser$ | async)) {
-                <a routerLink="register">Register</a>
-                <a routerLink="login">Login</a>
+                <a routerLink="register">{{'register' | translate}}</a>
+                <a routerLink="login">{{'login' | translate}}</a>
             } @else {
                 <a class="username" [routerLink]="'/users/current'">
                     {{(currentUser$ | async)?.first_name}}
                     {{(currentUser$ | async)?.last_name}}
                 </a>
-                <a id="logout" (click)="logout()">Logout</a>
+                <a id="logout" (click)="logout()">{{'logout' | translate}}</a>
             }
         </li>
     </ul>

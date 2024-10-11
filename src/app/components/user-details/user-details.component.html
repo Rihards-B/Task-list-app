@@ -1,20 +1,20 @@
 <div class="user-details">
     <form [formGroup]="userFormGroup">
         <div>
-            <label for="username">Username:</label><br>
+            <label for="username">{{'username'|translate}}:</label><br>
             <input type="text" formControlName="username">
         </div>
         <div>
-            <label for="first_name">First name:</label><br>
+            <label for="first_name">{{'first_name' | translate}}:</label><br>
             <input type="text" formControlName="first_name">
         </div>
         <div>
-            <label for="last_name">Last name:</label><br>
+            <label for="last_name">{{'last_name' | translate}}:</label><br>
             <input type="text" formControlName="last_name">
         </div>
         <div>
             <label for="Roles">
-                Roles: <br>
+                {{'roles' | translate}}: <br>
                     @for (role of user?.roles; track role) {
                     <ng-container formArrayName="roles">
                         <div class="role" >
@@ -27,18 +27,18 @@
             @if (user && userIsAdmin) {
                 @if (unusedRoles && unusedRoles.length > 0) {
                     <div [formGroup]="addRoleFormGroup">
-                        <label>Add Role: </label>
+                        <label>{{'add_role' | translate}}: </label>
                         <select formControlName="add_role" (change)="addRole()">
                             @for (role of unusedRoles; track role) {
                             <option [value]="role._id">
-                                {{role.role_name}}
+                                {{role.role_name.toLowerCase() | translate}}
                             </option>   
                             }
                         </select>
                     </div>
                 }
                 <div class="submit-button">
-                    <button (click)="updateUser()">Save changes</button>
+                    <button (click)="updateUser()">{{'save' | translate}}</button>
                 </div>
             }
         </div>

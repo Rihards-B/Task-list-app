@@ -1,5 +1,5 @@
 <div class="card">
     <a class="close-form" routerLink="/">x</a>
-    <h1 class="dialog-title">Add a new task</h1>
-    <app-task-form [submitText]="'Add task!'" [formType]="'Create'" (formSubmitted)="addTask($event)"></app-task-form>
+    <h1 class="dialog-title">{{'add_new_task' | translate}}</h1>
+    <app-task-form submitText="add_task" [formType]="'Create'" (formSubmitted)="addTask($event)"></app-task-form>
 </div>

@@ -7,11 +7,12 @@ import { User } from 'src/app/models/user';
 import { RoleComponent } from '../role/role.component';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 import { UserService } from 'src/app/sevices/user.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-details',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RoleComponent, RemoveButtonComponent],
+  imports: [ReactiveFormsModule, FormsModule, RoleComponent, RemoveButtonComponent, TranslateModule],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })

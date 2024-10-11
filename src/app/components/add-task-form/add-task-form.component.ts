@@ -4,11 +4,12 @@ import { Task } from '../../models/task';
 import { Router, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-task-form',
   standalone: true,
-  imports: [RouterModule, TaskFormComponent],
+  imports: [RouterModule, TaskFormComponent, TranslateModule],
   templateUrl: './add-task-form.component.html',
   styleUrl: './add-task-form.component.scss'
 })

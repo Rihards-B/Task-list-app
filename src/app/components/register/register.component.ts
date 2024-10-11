@@ -2,16 +2,15 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { backend_auth } from 'src/app/constants/endpoints';
 import { BehaviorSubject, Subject, tap } from 'rxjs';
 import { AuthService } from 'src/app/sevices/auth.service';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, FormErrorComponent, CommonModule],
+  imports: [ReactiveFormsModule, FormErrorComponent, CommonModule, TranslateModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })

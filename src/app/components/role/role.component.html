@@ -1,3 +1,5 @@
 <div>
-    {{role?.role_name}}
+    @if(role && role.role_name) {
+        {{role.role_name.toLowerCase() | translate}}
+    }
 </div>
