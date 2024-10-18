@@ -12,5 +12,8 @@
         @if(control.errors?.["maxlength"] && fieldName) {
             <small>{{fieldName}} must be longer than {{control.errors?.["maxlength"].requiredLength}} symbols</small>
         }
+        @if(control.errors?.["passwordsDontMatch"]) {
+            <small>Passwords have to match!</small>
+        }
     }
 }
