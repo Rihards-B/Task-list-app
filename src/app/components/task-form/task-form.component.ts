@@ -7,10 +7,10 @@ import { FormErrorComponent } from '../form-error/form-error.component';
 import { TaskListComponent } from '../task-list/task-list.component';
 import { EventEmitter } from '@angular/core';
 import { taskStatus, taskType } from 'src/app/constants/taskConstants';
-import { Task } from 'src/app/models/task';
+import { Task } from 'src/app/models/task.model';
 import { UserService } from 'src/app/sevices/user.service';
 import { Observable, take } from 'rxjs';
-import { User } from 'src/app/models/user';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-task-form',
