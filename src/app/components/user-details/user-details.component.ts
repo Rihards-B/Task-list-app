@@ -22,13 +22,13 @@ export class UserDetailsComponent implements OnInit {
   userRoles: Subject<Role[]> = new BehaviorSubject<Role[]>([]);
   userIsAdmin: boolean = false;
   userFormGroup: FormGroup = this.formBuilder.group({
-    first_name: [""],
-    last_name: [""],
+    firstName: [""],
+    lastName: [""],
     username: [""],
     roles: [""]
   });
   addRoleFormGroup: FormGroup = this.formBuilder.group({
-    add_role: [""]
+    addRole: [""]
   });
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -41,7 +41,7 @@ export class UserDetailsComponent implements OnInit {
       this.user = user;
       this.roles = roles;
       this.updateUnusedRoles();
-      if (this.user?.roles.find(role => role.role_name === "Admin")) {
+      if (this.user?.roles.find(role => role.roleName === "Admin")) {
         this.userIsAdmin = true;
       } else {
         this.userFormGroup.disable();
@@ -54,7 +54,7 @@ export class UserDetailsComponent implements OnInit {
 
   addRole() {
     console.log(this.userFormGroup);
-    const selectedRoleId: string = this.addRoleFormGroup.value["add_role"];
+    const selectedRoleId: string = this.addRoleFormGroup.value["addRole"];
     const roleToAdd = this.roles?.find(role => role._id === selectedRoleId);
     if (roleToAdd && this.user) {
       this.userFormGroup.controls["roles"].value.push(roleToAdd);
@@ -67,7 +67,6 @@ export class UserDetailsComponent implements OnInit {
       const roleToRemove = this.user.roles.find(role => role._id === id);
       if (roleToRemove) {
         this.user.roles.splice(this.user.roles.indexOf(roleToRemove), 1);
-        console.log(roleToRemove);
         this.updateUnusedRoles();
       }
     }
@@ -77,7 +76,7 @@ export class UserDetailsComponent implements OnInit {
     // Filtering out roles the user already has and also the admin role
     this.unusedRoles = this.roles?.filter(role =>
       !(this.user?.roles.some(userRole => userRole._id === role._id)) &&
-      role.role_name !== "Admin");
+      role.roleName !== "Admin");
   }
 
   updateUser() {

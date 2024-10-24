@@ -26,7 +26,7 @@ export class RoleService {
     isAdmin(user: User): Observable<boolean> {
         return this.availableRolesSubject.asObservable().pipe(
             map(roles => {
-                const adminRole: Role | undefined = roles.find(role => role.role_name === "Admin");
+                const adminRole: Role | undefined = roles.find(role => role.roleName === "Admin");
                 if (adminRole && user.roles.find(role => role._id === adminRole._id)) {
                     return true;
                 } else {
