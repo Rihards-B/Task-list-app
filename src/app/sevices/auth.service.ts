@@ -30,14 +30,16 @@ export class AuthService {
 
     // GET /logout
     // Removes the JWT from cookies
-    logout() {
+    logout(): Observable<Object> {
         return this.http.get(backend_auth + "logout").pipe(
             tap({
                 next: () => {
                     sessionStorage.removeItem("isLoggedIn");
                     window.location.reload();
                 },
-                error: () => {}
+                error: (error) => {
+                    console.log(error)
+                }
             })
         );
     }

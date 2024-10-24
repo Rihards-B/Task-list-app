@@ -9,13 +9,15 @@ import { TaskService } from '../sevices/task.service';
   styleUrl: './remove-button.component.scss'
 })
 export class RemoveButtonComponent {
+  @Input() disabled: boolean = false;
+  @Input() text: string = "REMOVE";
   @Input() keyToRemove: any | null = null;
   @Output() removeKey = new EventEmitter<any>();
-  
+
   constructor(private taskService: TaskService) {}
 
   onClick() {
-    if(this.keyToRemove) {
+    if (this.keyToRemove) {
       this.removeKey.emit(this.keyToRemove);
     }
   }
