@@ -9,13 +9,7 @@ import { User } from "../models/user.model";
     providedIn: 'root'
 })
 export class RoleService {
-    availableRolesSubject: Subject<Role[]> = new ReplaySubject<Role[]>();
-
-    constructor(private http: HttpClient) {
-        this.getRoles().pipe(take(1)).subscribe(roles => {
-            this.availableRolesSubject.next(roles);
-        })
-    }
+    constructor(private http: HttpClient) {}
 
     // GET /roles
     // Returns all of the existing roles
@@ -24,7 +18,7 @@ export class RoleService {
     }
 
     isAdmin(user: User): Observable<boolean> {
-        return this.availableRolesSubject.asObservable().pipe(
+        return this.getRoles().pipe(
             map(roles => {
                 if (user.roles.find(role => role.roleName === "Admin")) {
                     return true;
