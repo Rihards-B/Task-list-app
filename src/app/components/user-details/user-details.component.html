@@ -16,12 +16,12 @@
             <label for="Roles">
                 Roles: <br>
                     @for (role of user?.roles; track role) {
-                    <ng-container formArrayName="roles">
+                    <div>
                         <div class="role" >
                             <app-remove-button text="X" [keyToRemove]="role._id" (removeKey)="removeRole($event)" [disabled]="role.role_name==='User' || !userIsAdmin"></app-remove-button>
                             <app-role [role]="role"></app-role>
                         </div>
-                    </ng-container>
+                    </div>
                 }
             </label><br>
             @if (user && userIsAdmin) {
