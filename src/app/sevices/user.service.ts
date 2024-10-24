@@ -48,12 +48,11 @@ export class UserService {
     }
 
     updateCurrentUser() {
-        this.isLoggedInSubject.asObservable().pipe(take(1)).subscribe((isLoggedIn) => {
-            if (isLoggedIn) {
-                this.getCurrentUser().pipe(take(1)).subscribe(user => {
-                    this.currentUserSubject.next(user);
-                })
-            }
-        })
+        let loggedIn = this.isLoggedInSubject.getValue();
+        if (loggedIn) {
+            this.getCurrentUser().pipe(take(1)).subscribe(user => {
+                this.currentUserSubject.next(user);
+            })
+        }
     }
 }

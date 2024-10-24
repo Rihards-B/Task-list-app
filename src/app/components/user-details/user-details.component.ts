@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subject, take } from 'rxjs';
+import { BehaviorSubject, Subject, Subscription, take } from 'rxjs';
 import { Role } from 'src/app/models/role.model';
 import { User } from 'src/app/models/user.model';
 import { RoleComponent } from '../role/role.component';
@@ -15,7 +15,8 @@ import { UserService } from 'src/app/sevices/user.service';
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'
 })
-export class UserDetailsComponent implements OnInit {
+export class UserDetailsComponent implements OnInit, OnDestroy {
+  updateUserSubscription = Subscription.EMPTY;
   user: User = this.activatedRoute.snapshot.data["user"];
   roles: Role[] = this.activatedRoute.snapshot.data["roles"];
   unusedRoles: Role[] = [];
@@ -48,6 +49,10 @@ export class UserDetailsComponent implements OnInit {
     }
   }
 
+  ngOnDestroy(): void {
+    this.updateUserSubscription.unsubscribe();
+  }
+
   addRole() {
     const selectedRoleName: string = this.addRoleFormGroup.value["addRole"];
     const roleToAdd = this.roles?.find(role => role.roleName === selectedRoleName);
@@ -77,7 +82,7 @@ export class UserDetailsComponent implements OnInit {
 
   updateUser() {
     if (this.user && this.user._id) {
-      this.userService.updateUser(this.userFormGroup.value, this.user._id).subscribe(() => {
+      this.updateUserSubscription = this.userService.updateUser(this.userFormGroup.value, this.user._id).subscribe(() => {
         this.router.navigateByUrl('/');
       });
     }
