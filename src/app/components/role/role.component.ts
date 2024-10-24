@@ -10,5 +10,5 @@ import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.compo
   styleUrl: './role.component.scss'
 })
 export class RoleComponent {
-  @Input() role?: Role | null = null;
+  @Input() role: Role | null = null;
 }
