@@ -1,20 +1,20 @@
 @if(control) {
     @if(control.invalid && control.touched || control.dirty ) {
         @if(control.errors?.["required"]) {
-            <small>{{'field_cant_be_empty' | translate}}</small>
+            <small>{{'fieldCantBeEmpty' | translate}}</small>
         }
         @if(control.errors?.["uniqueTitle"]) {
-            <small>{{'title_must_be_unique' | translate}}</small>
+            <small>{{'titleMustBeUnique' | translate}}</small>
         }
         @if(control.errors?.["minlength"] && fieldName) {
-            <small>{{'must_be_longer_than' | translate: {
+            <small>{{'mustBeLongerThan' | translate: {
                 label: fieldName | translate,
                 min: control.errors?.["minlength"].requiredLength}
                 }}
             </small>
         }
         @if(control.errors?.["maxlength"] && fieldName) {
-            <small>{{'must_be_shorter_than' | translate: {
+            <small>{{'mustBeShorterThan' | translate: {
                 label: fieldName | translate,
                 max: control.errors?.["maxlength"].requiredLength}
                 }}

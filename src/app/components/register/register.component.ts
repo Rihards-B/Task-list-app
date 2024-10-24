@@ -19,8 +19,8 @@ export class RegisterComponent {
   formGroup: FormGroup = this.formBuilder.group({
     username: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
     password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64)]],
-    first_name: ["", [Validators.required, Validators.maxLength(64)]],
-    last_name: ["", [Validators.required, Validators.maxLength(64)]]
+    firstName: ["", [Validators.required, Validators.maxLength(64)]],
+    lastName: ["", [Validators.required, Validators.maxLength(64)]]
   })
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {}

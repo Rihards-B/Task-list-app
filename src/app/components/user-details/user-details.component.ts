@@ -23,13 +23,13 @@ export class UserDetailsComponent implements OnInit {
   userRoles: Subject<Role[]> = new BehaviorSubject<Role[]>([]);
   userIsAdmin: boolean = false;
   userFormGroup: FormGroup = this.formBuilder.group({
-    first_name: [""],
-    last_name: [""],
+    firstName: [""],
+    lastName: [""],
     username: [""],
     roles: [""]
   });
   addRoleFormGroup: FormGroup = this.formBuilder.group({
-    add_role: [""]
+    addRole: [""]
   });
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -55,7 +55,7 @@ export class UserDetailsComponent implements OnInit {
 
   addRole() {
     console.log(this.userFormGroup);
-    const selectedRoleId: string = this.addRoleFormGroup.value["add_role"];
+    const selectedRoleId: string = this.addRoleFormGroup.value["addRole"];
     const roleToAdd = this.roles?.find(role => role._id === selectedRoleId);
     if (roleToAdd && this.user) {
       this.userFormGroup.controls["roles"].value.push(roleToAdd);

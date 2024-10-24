@@ -10,8 +10,8 @@
                 <a routerLink="login">{{'login' | translate}}</a>
             } @else {
                 <a class="username" [routerLink]="'/users/current'">
-                    {{(currentUser$ | async)?.first_name}}
-                    {{(currentUser$ | async)?.last_name}}
+                    {{(currentUser$ | async)?.firstName}}
+                    {{(currentUser$ | async)?.lastName}}
                 </a>
                 <a id="logout" (click)="logout()">{{'logout' | translate}}</a>
             }

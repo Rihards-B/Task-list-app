@@ -24,11 +24,11 @@
             </app-form-error>
         </div>
         <div>
-            <label for="assignedTo">{{'assigned_to' | translate}}:</label><br>
+            <label for="assignedTo">{{'assignedTo' | translate}}:</label><br>
             <select formControlName="assignedTo">
                 @for (user of users$ | async; track user) {
                 <option [value]="user.username">
-                    {{user.first_name}} {{user.last_name}} {{user.username}}
+                    {{user.firstName}} {{user.lastName}} {{user.username}}
                 </option>   
                 }
             </select>
@@ -49,7 +49,7 @@
             </app-form-error>
         </div>
         <div>
-            <label for="createdOn">{{'created_on' | translate}}:</label><br>
+            <label for="createdOn">{{'createdOn' | translate}}:</label><br>
             <input type="datetime" formControlName="createdOn">
             <app-form-error [control]="formGroup.controls['createdOn']">
             </app-form-error>
