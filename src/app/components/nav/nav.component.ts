@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { RouterModule } from '@angular/router';
 import { UserService } from 'src/app/sevices/user.service';
 import { AuthService } from 'src/app/sevices/auth.service';
-import { Observable, take } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -13,7 +13,8 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
-export class NavComponent implements OnInit {
+export class NavComponent implements OnInit, OnDestroy {
+  logoutSubscription = Subscription.EMPTY;
   currentUser$: Observable<User> = this.userService.currentUserSubject.asObservable();
 
   constructor(private userService: UserService, private authService: AuthService) {}
@@ -28,8 +29,12 @@ export class NavComponent implements OnInit {
     })
   }
 
+  ngOnDestroy(): void {
+    this.logoutSubscription.unsubscribe();
+  }
+
   logout() {
-    this.authService.logout().subscribe(() => {
+    this.logoutSubscription = this.authService.logout().subscribe(() => {
       this.userService.isLoggedInSubject.next(false);
     });
   }
