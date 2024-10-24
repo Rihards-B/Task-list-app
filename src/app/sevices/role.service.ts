@@ -1,9 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, take, ReplaySubject, Subject, map } from "rxjs";
-import { Role } from "../models/role-model";
+import { Role } from "../models/role.model";
 import { backend_roles } from "../constants/endpoints";
-import { User } from "../models/user";
+import { User } from "../models/user.model";
 
 @Injectable({
     providedIn: 'root'

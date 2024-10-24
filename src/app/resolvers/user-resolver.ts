@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
 import { inject } from "@angular/core";
-import { User } from "../models/user";
+import { User } from "../models/user.model";
 import { UserService } from "../sevices/user.service";
 
 export const UserResolver: ResolveFn<User> = (

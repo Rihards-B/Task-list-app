@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Role } from 'src/app/models/role-model';
+import { Role } from 'src/app/models/role.model';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 
 @Component({

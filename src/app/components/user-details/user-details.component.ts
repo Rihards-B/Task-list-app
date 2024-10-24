@@ -2,8 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/co
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subject, take } from 'rxjs';
-import { Role } from 'src/app/models/role-model';
-import { User } from 'src/app/models/user';
+import { Role } from 'src/app/models/role.model';
+import { User } from 'src/app/models/user.model';
 import { RoleComponent } from '../role/role.component';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 import { UserService } from 'src/app/sevices/user.service';
