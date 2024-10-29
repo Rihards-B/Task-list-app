@@ -1,0 +1,46 @@
+<div class="user-details">
+    <form [formGroup]="userFormGroup">
+        <div>
+            <label for="username">Username:</label><br>
+            <input type="text" formControlName="username">
+        </div>
+        <div>
+            <label for="firstName">First name:</label><br>
+            <input type="text" formControlName="firstName">
+        </div>
+        <div>
+            <label for="lastName">Last name:</label><br>
+            <input type="text" formControlName="lastName">
+        </div>
+        <div>
+            <label for="Roles">
+                Roles: <br>
+                    @for (role of user.roles; track role) {
+                    <div>
+                        <div class="role" >
+                            <app-remove-button text="X" [keyToRemove]="role.roleName" (removeKey)="removeRole($event)" [disabled]="role.roleName==='User' || !userIsAdmin"></app-remove-button>
+                            <app-role [role]="role"></app-role>
+                        </div>
+                    </div>
+                }
+            </label><br>
+            @if (user && userIsAdmin) {
+                @if (unusedRoles && unusedRoles.length > 0) {
+                    <div [formGroup]="addRoleFormGroup">
+                        <label>Add Role: </label>
+                        <select formControlName="addRole" (change)="addRole()">
+                            @for (role of unusedRoles; track role) {
+                            <option [value]="role.roleName">
+                                {{role.roleName}}
+                            </option>   
+                            }
+                        </select>
+                    </div>
+                }
+                <div class="submit-button">
+                    <button (click)="updateUser()">Save changes</button>
+                </div>
+            }
+        </div>
+    </form>
+</div>

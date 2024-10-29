@@ -28,7 +28,7 @@
             <select formControlName="assignedTo">
                 @for (user of users$ | async; track user) {
                 <option [value]="user.username">
-                    {{user.first_name}} {{user.last_name}} {{user.username}}
+                    {{user.firstName}} {{user.lastName}} {{user.username}}
                 </option>   
                 }
             </select>

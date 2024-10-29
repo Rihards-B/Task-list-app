@@ -25,10 +25,15 @@ a {
     padding: 1rem;
     float: left;
     text-decoration: none;
-    color: colors.$fg-accent;
+    color: colors.$fg-primary;
 }
 
 .username {
     font-size: 1.2rem;
-    color: colors.$fg-primary
+    color: colors.$fg-primary;
+}
+
+#logout:hover {
+    color: colors.$fg-accent;
+    cursor: pointer;
 }
