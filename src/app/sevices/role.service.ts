@@ -1,7 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, take, ReplaySubject, Subject, map } from "rxjs";
-import { Role } from "../models/role.model";
+import { Observable, of } from "rxjs";
 import { backend_roles } from "../constants/endpoints";
 import { User } from "../models/user.model";
 
@@ -13,19 +12,15 @@ export class RoleService {
 
     // GET /roles
     // Returns all of the existing roles
-    getRoles(): Observable<Role[]> {
-        return this.http.get<Role[]>(backend_roles);
+    getRoles(): Observable<string[]> {
+        return this.http.get<string[]>(backend_roles);
     }
 
     isAdmin(user: User): Observable<boolean> {
-        return this.getRoles().pipe(
-            map(roles => {
-                if (user.roles.find(role => role.roleName === "Admin")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            })
-        )
+        if (user.roles.find(role => role === "Admin")) {
+            return of(true);
+        } else {
+            return of(false);
+        }
     }
 }

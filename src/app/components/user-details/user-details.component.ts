@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Subject, Subscription, take } from 'rxjs';
-import { Role } from 'src/app/models/role.model';
+import { BehaviorSubject, Subject, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user.model';
 import { RoleComponent } from '../role/role.component';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
@@ -18,9 +17,9 @@ import { UserService } from 'src/app/sevices/user.service';
 export class UserDetailsComponent implements OnInit, OnDestroy {
   updateUserSubscription = Subscription.EMPTY;
   user: User = this.activatedRoute.snapshot.data["user"];
-  roles: Role[] = this.activatedRoute.snapshot.data["roles"];
-  unusedRoles: Role[] = [];
-  userRoles: Subject<Role[]> = new BehaviorSubject<Role[]>([]);
+  roles: string[] = this.activatedRoute.snapshot.data["roles"];
+  unusedRoles: string[] = [];
+  userRoles: Subject<string[]> = new BehaviorSubject<string[]>([]);
   userIsAdmin: boolean = false;
   userFormGroup: FormGroup = this.formBuilder.group({
     firstName: [""],
@@ -39,7 +38,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateUnusedRoles();
-    if (this.user?.roles.find(role => role.roleName === "Admin")) {
+    if (this.user.roles.includes("Admin")) {
       this.userIsAdmin = true;
     } else {
       this.userFormGroup.disable();
@@ -55,7 +54,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   addRole() {
     const selectedRoleName: string = this.addRoleFormGroup.value["addRole"];
-    const roleToAdd = this.roles?.find(role => role.roleName === selectedRoleName);
+    const roleToAdd = this.roles?.find(role => role === selectedRoleName);
     if (roleToAdd && this.user) {
       this.userFormGroup.controls["roles"].value.push(roleToAdd);
       this.updateUnusedRoles();
@@ -65,7 +64,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   removeRole(name: string) {
     if (this.user) {
-      const roleToRemove = this.user.roles.find(role => role.roleName === name);
+      const roleToRemove = this.user.roles.find(role => role === name);
       if (roleToRemove) {
         this.user.roles.splice(this.user.roles.indexOf(roleToRemove), 1);
         this.updateUnusedRoles();
@@ -76,8 +75,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   updateUnusedRoles() {
     // Filtering out roles the user already has and also the admin role
     this.unusedRoles = this.roles?.filter(role =>
-      !(this.user?.roles.some(userRole => userRole.roleName === role.roleName)) &&
-      role.roleName !== "Admin");
+      !(this.user?.roles.some(userRole => userRole === role)) &&
+      role !== "Admin");
   }
 
   updateUser() {

@@ -18,7 +18,7 @@
                     @for (role of user.roles; track role) {
                     <div>
                         <div class="role" >
-                            <app-remove-button text="X" [keyToRemove]="role.roleName" (removeKey)="removeRole($event)" [disabled]="role.roleName==='User' || !userIsAdmin"></app-remove-button>
+                            <app-remove-button text="X" [keyToRemove]="role" (removeKey)="removeRole($event)" [disabled]="role==='User' || !userIsAdmin"></app-remove-button>
                             <app-role [role]="role"></app-role>
                         </div>
                     </div>
@@ -30,8 +30,8 @@
                         <label>Add Role: </label>
                         <select formControlName="addRole" (change)="addRole()">
                             @for (role of unusedRoles; track role) {
-                            <option [value]="role.roleName">
-                                {{role.roleName}}
+                            <option [value]="role">
+                                {{role}}
                             </option>   
                             }
                         </select>
