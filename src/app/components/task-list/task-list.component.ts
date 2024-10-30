@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import { Observable, Subscription, take } from 'rxjs';
-import { Task } from '../../models/task';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
+import { Task } from '../../models/task.model';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../../sevices/task.service';

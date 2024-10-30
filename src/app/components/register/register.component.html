@@ -1,5 +1,5 @@
 <div class="register">
-    <form [formGroup]="formGroup" (submit)="Register()">
+    <form [formGroup]="formGroup" (submit)="register()">
         <div>
             <label for="username">{{'username' | translate}}:</label><br>
             <input type="text" formControlName="username"><br>
@@ -10,6 +10,12 @@
             <label for="password">{{'password' | translate}}:</label><br>
             <input type="password" formControlName="password"><br>
             <app-form-error fieldName="Password" [control]="formGroup.controls['password']">
+            </app-form-error>
+        </div>
+        <div>
+            <label for="confirmPassword">{{'confirmPassword' | translate}}</label><br>
+            <input type="password" formControlName="confirmPassword"><br>
+            <app-form-error fieldName="confirmPassword" [control]="formGroup.controls['confirmPassword']">
             </app-form-error>
         </div>
         <div>

@@ -1,4 +1,4 @@
-export type authDetails = {
+export type AuthDetails = {
     username: string,
     password: string
 }

@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { TaskService } from 'src/app/sevices/task.service';
 import { TaskComponent } from '../task/task.component';
 import { Subscription, take } from 'rxjs';
-import { Task } from 'src/app/models/task';
+import { Task } from 'src/app/models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { taskType } from 'src/app/constants/taskConstants';
 import { CommonModule } from '@angular/common';
