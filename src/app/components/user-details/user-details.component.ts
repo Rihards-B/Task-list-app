@@ -38,8 +38,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateUnusedRoles();
-    console.log(this.unusedRoles);
-    if (this.user?.roles.find(role => role === "Admin")) {
+    if (this.user.roles.includes("Admin")) {
       this.userIsAdmin = true;
     } else {
       this.userFormGroup.disable();
