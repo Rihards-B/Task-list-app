@@ -23,7 +23,7 @@ export class RegisterComponent implements OnDestroy {
   formGroup: FormGroup = this.formBuilder.group({
     username: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
     password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64)]],
-    confirm_password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64), PasswordsMatch("password")]],
+    confirmPassword: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64), PasswordsMatch("password")]],
     firstName: ["", [Validators.required, Validators.maxLength(64)]],
     lastName: ["", [Validators.required, Validators.maxLength(64)]]
   })

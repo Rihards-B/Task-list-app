@@ -37,5 +37,8 @@
     "admin": "Admin",
     "addRole": "Add role",
     "en": "English",
-    "lv": "Latvian"
+    "lv": "Latvian",
+    "confirmPassword": "Confirm password",
+    "passwordsHaveToMatch": "Passwords have to match"
+
 }

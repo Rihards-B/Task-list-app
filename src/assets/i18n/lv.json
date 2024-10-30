@@ -37,5 +37,7 @@
     "admin": "Administrators",
     "addRole": "Pievienot lomu",
     "en": "Angļu",
-    "lv": "Latviešu"
+    "lv": "Latviešu",
+    "confirmPassword": "Atkārtot paroli",
+    "passwordsHaveToMatch": "Parolēm ir jāsakrīt"
 }
