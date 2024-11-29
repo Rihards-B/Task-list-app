@@ -12,7 +12,7 @@ export class LanguageService {
 
     constructor(private translateService: TranslateService) {
         if (isPlatformBrowser(this.platformID)) {
-            this.defaultLang = localStorage.getItem("lang") || this.languages[0];
+            this.defaultLang = localStorage.getItem("lang") ?? this.languages[0];
             this.translateService.setDefaultLang(this.defaultLang);
             this.translateService.use(this.defaultLang);
         }
