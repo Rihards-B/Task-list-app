@@ -35,26 +35,26 @@ export class RegisterComponent implements OnDestroy {
   }
 
   register() {
-    if (this.formGroup.valid) {
-      this.registerSubscription = this.authService.register(this.formGroup.value, this.registerErrorsSubject).pipe(
-        tap({
-          next: (response) => {
-            if (response.isLoggedIn) {
-              sessionStorage.setItem("isLoggedIn", "true");
-              this.userService.isLoggedInSubject.next(true);
-              this.userService.updateCurrentUser();
-              this.router.navigateByUrl("/");
-            }
-          },
-          error: (response) => {
-            if (response instanceof HttpErrorResponse) {
-              if (response.status === 400) {
-                this.registerErrorsSubject.next(response.error.messages);
-              }
-            }
-          }
-        })
-      ).subscribe();
-    }
+    //   if (this.formGroup.valid) {
+    //     this.registerSubscription = this.authService.register(this.formGroup.value, this.registerErrorsSubject).pipe(
+    //       tap({
+    //         next: (response) => {
+    //           if (response.isLoggedIn) {
+    //             sessionStorage.setItem("isLoggedIn", "true");
+    //             this.userService.isLoggedInSubject.next(true);
+    //             this.userService.updateCurrentUser();
+    //             this.router.navigateByUrl("/");
+    //           }
+    //         },
+    //         error: (response) => {
+    //           if (response instanceof HttpErrorResponse) {
+    //             if (response.status === 400) {
+    //               this.registerErrorsSubject.next(response.error.messages);
+    //             }
+    //           }
+    //         }
+    //       })
+    //     ).subscribe();
+    //   }
   }
 }

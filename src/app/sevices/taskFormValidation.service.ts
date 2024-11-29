@@ -3,7 +3,7 @@ import { TaskService } from './task.service';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AppState } from '../store/app.store';
 import { Store } from '@ngrx/store';
-import { Task } from '../models/task';
+import { Task } from '../models/task.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,22 +1,14 @@
-import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
-import { BehaviorSubject, Observable, ReplaySubject, Subject, take, tap } from "rxjs";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { User } from "../models/user.model";
 import { HttpClient } from "@angular/common/http";
 import { backend_users } from "../constants/endpoints";
-import { isPlatformBrowser } from "@angular/common";
+
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    isLoggedInSubject = new BehaviorSubject<boolean>(false);
-    currentUserSubject: Subject<User> = new ReplaySubject<User>();
-
-    constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
-        if (isPlatformBrowser(this.platformId)) {
-            this.isLoggedInSubject.next(sessionStorage.getItem("isLoggedIn") ? true : false);
-        }
-        this.updateCurrentUser();
-    }
+    constructor(private http: HttpClient) {}
 
     // GET /users
     // Returns all users
@@ -40,19 +32,6 @@ export class UserService {
     // Updates the user with the user data from body,
     // Returns the updated user
     updateUser(user: User, userId: string): Observable<User> {
-        return this.http.put<User>(backend_users + userId, user).pipe(tap({
-            next: () => {
-                this.updateCurrentUser();
-            }
-        }))
-    }
-
-    updateCurrentUser() {
-        let loggedIn = this.isLoggedInSubject.getValue();
-        if (loggedIn) {
-            this.getCurrentUser().pipe(take(1)).subscribe(user => {
-                this.currentUserSubject.next(user);
-            })
-        }
+        return this.http.put<User>(backend_users + userId, user);
     }
 }

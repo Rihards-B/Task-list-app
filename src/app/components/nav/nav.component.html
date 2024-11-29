@@ -5,13 +5,13 @@
         </li>
         <li>
             <app-language-selector></app-language-selector>
-            @if (!(currentUser$ | async)) {
+            @if (!currentUser()) {
                 <a routerLink="register">{{'register' | translate}}</a>
                 <a routerLink="login">{{'login' | translate}}</a>
             } @else {
                 <a class="username" [routerLink]="'/users/current'">
-                    {{(currentUser$ | async)?.firstName}}
-                    {{(currentUser$ | async)?.lastName}}
+                    {{currentUser()?.firstName}}
+                    {{currentUser()?.lastName}}
                 </a>
                 <a id="logout" (click)="logout()">{{'logout' | translate}}</a>
             }
