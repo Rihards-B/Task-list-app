@@ -1,5 +1,5 @@
 <div class="register">
-    <form [formGroup]="formGroup" (submit)="Register()">
+    <form [formGroup]="formGroup" (submit)="register()">
         <div>
             <label for="username">{{'username' | translate}}:</label><br>
             <input type="text" formControlName="username"><br>
@@ -13,19 +13,25 @@
             </app-form-error>
         </div>
         <div>
-            <label for="firstName">{{'firstName' | translate}}:</label><br>
-            <input type="firstName" formControlName="firstName"><br>
-            <app-form-error fieldName="firstName" [control]="formGroup.controls['firstName']">
+            <label for="confirmPassword">Confirm password:</label><br>
+            <input type="password" formControlName="confirmPassword"><br>
+            <app-form-error fieldName="Confirm password" [control]="formGroup.controls['confirmPassword']">
             </app-form-error>
         </div>
         <div>
-            <label for="lastName">{{'lastName' | translate}}:</label><br>
+            <label for="firstName">First name:</label><br>
+            <input type="firstName" formControlName="firstName"><br>
+            <app-form-error fieldName="First name" [control]="formGroup.controls['firstName']">
+            </app-form-error>
+        </div>
+        <div>
+            <label for="lastName">Last name:</label><br>
             <input type="lastName" formControlName="lastName"><br>
-            <app-form-error fieldName="lastName" [control]="formGroup.controls['lastName']">
+            <app-form-error fieldName="Last name" [control]="formGroup.controls['lastName']">
             </app-form-error>
         </div>
         <div class="centered">
-            <button #submitButton type="submit" [disabled]="!formGroup.valid">{{'register' | translate}}</button>
+            <button #submitButton type="submit" >Register</button>
         </div>
     </form>
     <div class="centered error">

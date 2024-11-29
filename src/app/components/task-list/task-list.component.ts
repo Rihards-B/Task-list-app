@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Task } from '../../models/task';
+import { Task } from '../../models/task.model';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';

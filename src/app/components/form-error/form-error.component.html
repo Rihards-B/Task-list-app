@@ -20,5 +20,8 @@
                 }}
             </small>
         }
+        @if(control.errors?.["passwordsDontMatch"]) {
+            <small>Passwords have to match!</small>
+        }
     }
 }

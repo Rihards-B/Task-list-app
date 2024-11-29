@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
-import { Task } from "../models/task";
+import { Task } from "../models/task.model";
 import { Inject, inject } from "@angular/core";
 import { TaskService } from "../sevices/task.service";
 
