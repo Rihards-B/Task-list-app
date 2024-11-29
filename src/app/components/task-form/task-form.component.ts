@@ -12,6 +12,9 @@ import { UserService } from 'src/app/sevices/user.service';
 import { Observable, take } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppState } from 'src/app/store/app.store';
+import { Store } from '@ngrx/store';
+import { getTasks } from 'src/app/store/task/task.actions';
 
 @Component({
   selector: 'app-task-form',
@@ -44,9 +47,11 @@ export class TaskFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
     private taskFormValidationService: TaskFormValidationService,
-    private userService: UserService) {};
+    private userService: UserService,
+    private store: Store<AppState>) {};
 
   ngOnInit(): void {
+    this.store.dispatch(getTasks());
     if (this.task) {
       this.formGroup.patchValue(this.task);
       this.formGroup.controls["title"].setValidators([

@@ -1,7 +1,7 @@
 <div>
     <div class="task-list-header">
         <h2>{{'tasks' | translate}}: </h2>
-        <p>{{'completed' | translate}} {{'tasks' | translate}}: {{tasksCompleted}} / {{(tasks$ | async)?.length}}</p>
+        <p>{{'completed' | translate}} {{'tasks' | translate}}: {{tasksCompleted$ | async}} / {{(tasks$ | async)?.length}}</p>
     </div>
     <ul class="task-list">
         <hr/>
@@ -14,4 +14,5 @@
             <hr/>
         </li>
     </ul>
+
 </div>
