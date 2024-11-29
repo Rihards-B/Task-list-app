@@ -1,27 +1,27 @@
 @if(control) {
     @if(control.invalid && control.touched || control.dirty ) {
         @if(control.errors?.["required"]) {
-            <small>{{'fieldCantBeEmpty' | translate}}</small>
+            <small>{{'form.input.empty' | translate}}</small>
         }
         @if(control.errors?.["uniqueTitle"]) {
-            <small>{{'titleMustBeUnique' | translate}}</small>
+            <small>{{'form.input.title.unique' | translate}}</small>
         }
         @if(control.errors?.["minlength"] && fieldName) {
-            <small>{{'mustBeLongerThan' | translate: {
+            <small>{{'form.input.longer.than' | translate: {
                 label: fieldName | translate,
                 min: control.errors?.["minlength"].requiredLength}
                 }}
             </small>
         }
         @if(control.errors?.["maxlength"] && fieldName) {
-            <small>{{'mustBeShorterThan' | translate: {
+            <small>{{'form.input.shorter.than' | translate: {
                 label: fieldName | translate,
                 max: control.errors?.["maxlength"].requiredLength}
                 }}
             </small>
         }
         @if(control.errors?.["passwordsDontMatch"]) {
-            <small>{{"passwordsHaveToMatch" | translate}}</small>
+            <small>{{"form.input.passwords.must.match" | translate}}</small>
         }
     }
 }

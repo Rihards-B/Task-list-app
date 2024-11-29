@@ -7,11 +7,12 @@ import { Task } from 'src/app/models/task.model';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { taskType } from 'src/app/constants/taskConstants';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-details',
   standalone: true,
-  imports: [TaskComponent, TaskFormComponent, RouterModule, CommonModule],
+  imports: [TaskComponent, TaskFormComponent, RouterModule, CommonModule, TranslateModule],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss'
 })
