@@ -49,8 +49,13 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     } else {
       this.userFormGroup.disable();
     }
+
     if (this.user) {
       this.userFormGroup.patchValue(this.user);
+    }
+
+    if (!this.user && this.currentUser) {
+      this.userFormGroup.patchValue(this.currentUser);
     }
   }
 

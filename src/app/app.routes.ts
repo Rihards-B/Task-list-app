@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: "", component: TasksCardComponent, canActivate: [loggedInGuard] },
     { path: "add-task", component: AddTaskFormComponent, canActivate: [loggedInGuard] },
     { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver } },
-    //{ path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [loggedInGuard] },
+    { path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [loggedInGuard] },
     { path: "users/:id", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [isAdminGuard] },
     { path: "register", component: RegisterComponent, canActivate: [blockLoggedInUserGuard] },
     { path: "login", component: LoginComponent, canActivate: [blockLoggedInUserGuard] },
