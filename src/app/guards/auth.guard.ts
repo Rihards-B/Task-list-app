@@ -2,18 +2,27 @@ import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from "@ang
 import { inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { AuthStore } from "../store/auth/auth.store";
+import { exhaustMap, filter, map, Observable, of, switchMap } from "rxjs";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 export const loggedInGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
-) => {
+): Observable<boolean> => {
     // Don't let the angular server make api calls that need authorization
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
-        //const authStore = inject(AuthStore);
-        //return authStore.isLoggedIn();
-        return localStorage.getItem("isLoggedIn") == "true" ? true : false;
+        const authStore = inject(AuthStore);
+
+        const isloggedin$ = toObservable(authStore.isLoggedIn);
+
+        return isloggedin$.pipe(
+            filter(value => value !== null),
+            map((value) => {
+                return value ? true : false;
+            })
+        )
     } else {
-        return false
+        return of(false)
     }
 };
 
@@ -24,7 +33,15 @@ export const blockLoggedInUserGuard: CanActivateFn = (
     // Don't let the angular server make api calls that need authorization
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
         const authStore = inject(AuthStore);
-        return !authStore.isLoggedIn();
+
+        const isloggedin$ = toObservable(authStore.isLoggedIn);
+
+        return isloggedin$.pipe(
+            filter(value => value !== null),
+            map((value) => {
+                return value ? false : true;
+            })
+        )
     } else {
         return true
     }

@@ -16,11 +16,11 @@ export class RoleService {
         return this.http.get<string[]>(backend_roles);
     }
 
-    isAdmin(user: User): Observable<boolean> {
+    isAdmin(user: User): boolean {
         if (user.roles.find(role => role === "Admin")) {
-            return of(true);
+            return true;
         } else {
-            return of(false);
+            return false;
         }
     }
 }

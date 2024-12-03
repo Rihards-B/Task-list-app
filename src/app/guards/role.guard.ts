@@ -2,9 +2,10 @@ import { isPlatformBrowser } from "@angular/common";
 import { inject, PLATFORM_ID } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from "@angular/router";
 import { RoleService } from "../sevices/role.service";
-import { Observable, of } from "rxjs";
+import { Observable, of, map, tap, filter } from "rxjs";
 import { AuthStore } from "../store/auth/auth.store";
 import { User } from "../models/user.model";
+import { toObservable } from "@angular/core/rxjs-interop";
 
 export const isAdminGuard: CanActivateFn = (
     route: ActivatedRouteSnapshot,
@@ -14,15 +15,17 @@ export const isAdminGuard: CanActivateFn = (
         const authStore = inject(AuthStore)
         const roleService = inject(RoleService);
 
-        const currentUser: User | null = authStore.currentUser();
+        const currentUser$ = toObservable(authStore.currentUser);
 
-        if (currentUser) {
-            console.log("Returning is admin check with user: ", currentUser);
-            return roleService.isAdmin(currentUser);
-        } else {
-            console.log("Returning no user");
-            return of(false);
-        }
+        return currentUser$.pipe(
+            filter(user => user != null),
+            map(user => {
+                if (user) {
+                    return roleService.isAdmin(user);
+                }
+                return false;
+            })
+        )
     } else {
         return of(false);
     }
