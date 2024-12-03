@@ -23,7 +23,6 @@ export class NavComponent {
   constructor() {}
 
   logout() {
-    //   TODO
-    //   this.authStore.logout()
+    this.authStore.logout();
   }
 }

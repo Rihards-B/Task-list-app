@@ -14,12 +14,24 @@ export function withAuthSignalMethods() {
     return signalStoreFeature(
         withMethods((store, userService = inject(UserService), authService = inject(AuthService), router = inject(Router)) => {
             return {
+                logout: rxMethod<void>(
+                    pipe(switchMap(() => {
+                        return authService.logout().pipe(
+                            tap(() => {
+                                console.log("Logging out!");
+                                patchState(store, { isLoggedIn: false, currentUser: null });
+                                router.navigateByUrl("/login");
+                            })
+                        )
+                    }))
+                ),
                 login: rxMethod<AuthDetails>(
                     pipe(switchMap((authdetails) => {
                         return authService.login(authdetails).pipe(
                             tap({
                                 next: (response) => {
                                     if (response.isLoggedIn) {
+                                        console.log("Logging in with user: ", response.user);
                                         patchState(store, { isLoggedIn: true, currentUser: response.user });
                                         localStorage.setItem("isLoggedIn", "true")
                                         router.navigateByUrl("/");
@@ -36,9 +48,15 @@ export function withAuthSignalMethods() {
                 loadCurrentUser: rxMethod<void>(
                     pipe(switchMap(() => {
                         return userService.getCurrentUser().pipe(
-                            tap((user: User) => {
-                                console.log("Got current user: ", user);
-                                patchState(store, { isLoggedIn: true, currentUser: user })
+                            tap({
+                                next: (user) => {
+                                    console.log("Got current user: ", user);
+                                    patchState(store, { isLoggedIn: true, currentUser: user });
+                                },
+                                error: (error) => {
+                                    console.log("Error getting current user");
+                                    patchState(store, { isLoggedIn: false, currentUser: null });
+                                }
                             })
                         )
                     })
