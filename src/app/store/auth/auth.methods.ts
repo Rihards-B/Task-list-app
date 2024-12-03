@@ -2,18 +2,34 @@ import { inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { patchState, signalStoreFeature, withMethods } from "@ngrx/signals";
 import { rxMethod } from "@ngrx/signals/rxjs-interop"
-import { SlowBuffer } from "buffer";
-import { lastValueFrom, pipe, switchMap, tap } from "rxjs";
+import { tapResponse } from "@ngrx/operators"
+import { pipe, switchMap, tap } from "rxjs";
 import { AuthDetails } from "src/app/models/auth-details.model";
-import { AuthStatus } from "src/app/models/auth-status.model";
 import { User } from "src/app/models/user.model";
 import { AuthService } from "src/app/sevices/auth.service";
 import { UserService } from "src/app/sevices/user.service";
+import { HttpErrorResponse } from "@angular/common/http";
 
 export function withAuthSignalMethods() {
     return signalStoreFeature(
         withMethods((store, userService = inject(UserService), authService = inject(AuthService), router = inject(Router)) => {
             return {
+                register: rxMethod<User>(
+                    pipe(switchMap((user) => {
+                        return authService.register(user).pipe(
+                            tapResponse(
+                                (response) => {
+                                    patchState(store, { isLoggedIn: response.isLoggedIn, currentUser: response.user });
+                                    router.navigateByUrl("/");
+                                },
+                                (error: HttpErrorResponse) => {
+                                    console.log(error.error);
+                                    patchState(store, { errors: error.error.messages });
+                                }
+                            )
+                        )
+                    }))
+                ),
                 logout: rxMethod<void>(
                     pipe(switchMap(() => {
                         return authService.logout().pipe(
@@ -28,8 +44,8 @@ export function withAuthSignalMethods() {
                 login: rxMethod<AuthDetails>(
                     pipe(switchMap((authdetails) => {
                         return authService.login(authdetails).pipe(
-                            tap({
-                                next: (response) => {
+                            tapResponse(
+                                (response) => {
                                     if (response.isLoggedIn) {
                                         console.log("Logging in with user: ", response.user);
                                         patchState(store, { isLoggedIn: true, currentUser: response.user });
@@ -37,27 +53,28 @@ export function withAuthSignalMethods() {
                                         router.navigateByUrl("/");
                                     }
                                 },
-                                error: (error) => {
-                                    console.log(error);
+                                (error: HttpErrorResponse) => {
+                                    console.log(error.error);
+                                    patchState(store, { errors: error.error.messages });
                                 }
 
-                            })
+                            )
                         )
                     }))
                 ),
                 loadCurrentUser: rxMethod<void>(
                     pipe(switchMap(() => {
                         return userService.getCurrentUser().pipe(
-                            tap({
-                                next: (user) => {
+                            tapResponse(
+                                (user) => {
                                     console.log("Got current user: ", user);
                                     patchState(store, { isLoggedIn: true, currentUser: user });
                                 },
-                                error: (error) => {
+                                (error: HttpErrorResponse) => {
                                     console.log("Error getting current user");
                                     patchState(store, { isLoggedIn: false, currentUser: null });
                                 }
-                            })
+                            )
                         )
                     })
                     )
