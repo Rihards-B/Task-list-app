@@ -21,6 +21,7 @@ import { getTasks, removeTask } from 'src/app/store/task/task.actions';
 export class TaskListComponent implements OnInit {
   tasksCompleted$: Observable<number> = this.store.select(state => state.task.completedTasks);
   tasks$: Observable<Task[]> = this.store.select(state => state.task.tasks)
+
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {

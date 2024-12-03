@@ -9,7 +9,6 @@ import { Observable } from "rxjs";
     providedIn: 'root'
 })
 export class AuthService {
-
     constructor(private http: HttpClient) {};
 
     // POST /login
@@ -22,20 +21,9 @@ export class AuthService {
 
     // GET /logout
     // Removes the JWT from cookies
-    // logout(): Observable<Object> {
-    //     return this.http.get(backend_auth + "logout").pipe(
-    //         tap({
-    //             next: () => {
-    //                 sessionStorage.removeItem("isLoggedIn");
-    //                 this.userService.isLoggedIn.next(false);
-    //                 window.location.reload();
-    //             },
-    //             error: (error) => {
-    //                 console.log(error)
-    //             }
-    //         })
-    //     );
-    // }
+    logout(): Observable<Object> {
+        return this.http.get(backend_auth + "logout");
+    }
 
     // POST /register
     // Registers a user and logs them in
