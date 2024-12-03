@@ -16,7 +16,7 @@
             <button #submitButton type="submit" [disabled]="!formGroup.valid">{{'login' | translate}}</button>
         </div>
     </form>
-    @if (failedLoginSubject | async) {
+    @if (errors().length > 0) {
         <div class="centered error">
             <span>{{'invalidCredentials' | translate}}</span>
         </div>

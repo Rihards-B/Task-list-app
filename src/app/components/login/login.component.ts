@@ -15,7 +15,7 @@ import { AuthStore } from 'src/app/store/auth/auth.store';
 })
 export class LoginComponent {
   authStore = inject(AuthStore);
-  failedLoginSubject = new BehaviorSubject<boolean>(false);
+  errors = this.authStore.errors;
   formGroup: FormGroup = this.formBuilder.group({
     username: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
     password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64)]]
