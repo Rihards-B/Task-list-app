@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Subject, Subscription } from 'rxjs';
@@ -7,6 +7,7 @@ import { RoleComponent } from '../role/role.component';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 import { UserService } from 'src/app/sevices/user.service';
 import { TranslateModule } from '@ngx-translate/core';
+import { AuthStore } from 'src/app/store/auth/auth.store';
 
 @Component({
   selector: 'app-user-details',
@@ -17,6 +18,10 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class UserDetailsComponent implements OnInit, OnDestroy {
   updateUserSubscription = Subscription.EMPTY;
+
+  authStore = inject(AuthStore);
+
+  currentUser = this.authStore.currentUser();
   user: User = this.activatedRoute.snapshot.data["user"];
   roles: string[] = this.activatedRoute.snapshot.data["roles"];
   unusedRoles: string[] = [];
@@ -39,7 +44,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateUnusedRoles();
-    if (this.user.roles.includes("Admin")) {
+    if (this.currentUser && this.currentUser.roles.includes("Admin")) {
       this.userIsAdmin = true;
     } else {
       this.userFormGroup.disable();
