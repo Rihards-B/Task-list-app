@@ -6,11 +6,12 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
 import { TaskService } from '../../sevices/task.service';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [HttpClientModule, NgFor, NgIf, TaskComponent, RemoveButtonComponent, CommonModule],
+  imports: [HttpClientModule, NgFor, NgIf, TaskComponent, RemoveButtonComponent, CommonModule, TranslateModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })

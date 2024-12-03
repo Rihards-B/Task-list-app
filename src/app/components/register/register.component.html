@@ -1,37 +1,37 @@
 <div class="register">
     <form [formGroup]="formGroup" (submit)="register()">
         <div>
-            <label for="username">Username:</label><br>
+            <label for="username">{{'username' | translate}}:</label><br>
             <input type="text" formControlName="username"><br>
             <app-form-error fieldName="Username" [control]="formGroup.controls['username']">
             </app-form-error>
         </div>
         <div>
-            <label for="password">Password:</label><br>
+            <label for="password">{{'password' | translate}}:</label><br>
             <input type="password" formControlName="password"><br>
             <app-form-error fieldName="Password" [control]="formGroup.controls['password']">
             </app-form-error>
         </div>
         <div>
-            <label for="confirm_password">Confirm password:</label><br>
-            <input type="password" formControlName="confirm_password"><br>
-            <app-form-error fieldName="Confirm password" [control]="formGroup.controls['confirm_password']">
+            <label for="confirmPassword">{{'form.input.confim.password' | translate}}</label><br>
+            <input type="password" formControlName="confirmPassword"><br>
+            <app-form-error fieldName="confirmPassword" [control]="formGroup.controls['confirmPassword']">
             </app-form-error>
         </div>
         <div>
-            <label for="firstName">First name:</label><br>
+            <label for="firstName">{{'first.name' | translate}}:</label><br>
             <input type="firstName" formControlName="firstName"><br>
-            <app-form-error fieldName="First name" [control]="formGroup.controls['firstName']">
+            <app-form-error fieldName="firstName" [control]="formGroup.controls['firstName']">
             </app-form-error>
         </div>
         <div>
-            <label for="lastName">Last name:</label><br>
+            <label for="lastName">{{'last.name' | translate}}:</label><br>
             <input type="lastName" formControlName="lastName"><br>
-            <app-form-error fieldName="Last name" [control]="formGroup.controls['lastName']">
+            <app-form-error fieldName="lastName" [control]="formGroup.controls['lastName']">
             </app-form-error>
         </div>
         <div class="centered">
-            <button #submitButton type="submit" >Register</button>
+            <button #submitButton type="submit" [disabled]="!formGroup.valid">{{'register' | translate}}</button>
         </div>
     </form>
     <div class="centered error">

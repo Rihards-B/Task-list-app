@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { CommonModule } from '@angular/common';
 import { BehaviorSubject, Subject, Subscription, tap } from 'rxjs';
@@ -8,11 +8,12 @@ import { Router } from '@angular/router';
 import { PasswordsMatch } from 'src/app/validators/matching.validator';
 import { UserService } from 'src/app/sevices/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, FormErrorComponent, CommonModule],
+  imports: [ReactiveFormsModule, FormErrorComponent, CommonModule, TranslateModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
 })
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnDestroy {
   formGroup: FormGroup = this.formBuilder.group({
     username: ["", [Validators.required, Validators.minLength(4), Validators.maxLength(24)]],
     password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64)]],
-    confirm_password: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64), PasswordsMatch("password")]],
+    confirmPassword: ["", [Validators.required, Validators.minLength(6), Validators.maxLength(64), PasswordsMatch("password")]],
     firstName: ["", [Validators.required, Validators.maxLength(64)]],
     lastName: ["", [Validators.required, Validators.maxLength(64)]]
   })

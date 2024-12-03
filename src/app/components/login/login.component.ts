@@ -5,12 +5,13 @@ import { AuthService } from 'src/app/sevices/auth.service';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 import { UserService } from 'src/app/sevices/user.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, FormErrorComponent, CommonModule],
+  imports: [ReactiveFormsModule, FormErrorComponent, CommonModule, TranslateModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })

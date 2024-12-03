@@ -1,16 +1,17 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { TaskService } from '../sevices/task.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-remove-button',
   standalone: true,
-  imports: [],
+  imports: [TranslateModule],
   templateUrl: './remove-button.component.html',
   styleUrl: './remove-button.component.scss'
 })
 export class RemoveButtonComponent {
   @Input() disabled: boolean = false;
-  @Input() text: string = "REMOVE";
+  @Input() text: string = "remove";
   @Input() keyToRemove: any | null = null;
   @Output() removeKey = new EventEmitter<any>();
 

@@ -1,0 +1,9 @@
+<div [formGroup]="languageFormGroup">
+    <select name="language" id="language" formControlName="language" (change)="switchLanguage()">
+        @for (language of languages; track language) {
+            <option [value]="language">
+                {{language | translate}}
+            </option>
+        }
+    </select>
+</div>
