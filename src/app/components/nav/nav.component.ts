@@ -1,11 +1,8 @@
-import { Component, inject, OnInit, Signal } from '@angular/core';
-import { CommonModule, isPlatformBrowser } from "@angular/common";
-import { RouterModule, UrlSegment } from '@angular/router';
-import { UserService } from 'src/app/sevices/user.service';
-import { AuthService } from 'src/app/sevices/auth.service';
+import { Component, inject, Signal } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { RouterModule } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { TranslateModule } from '@ngx-translate/core';
-import { LanguageService } from 'src/app/sevices/language.service';
 import { LanguageSelectorComponent } from '../language-selector/language-selector.component';
 import { AuthStore } from 'src/app/store/auth/auth.store';
 
