@@ -1,38 +1,26 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, take, ReplaySubject, Subject, map } from "rxjs";
-import { Role } from "../models/role-model";
+import { Observable, of } from "rxjs";
 import { backend_roles } from "../constants/endpoints";
-import { User } from "../models/user";
+import { User } from "../models/user.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class RoleService {
-    availableRolesSubject: Subject<Role[]> = new ReplaySubject<Role[]>();
-
-    constructor(private http: HttpClient) {
-        this.getRoles().pipe(take(1)).subscribe(roles => {
-            this.availableRolesSubject.next(roles);
-        })
-    }
+    constructor(private http: HttpClient) {}
 
     // GET /roles
     // Returns all of the existing roles
-    getRoles(): Observable<Role[]> {
-        return this.http.get<Role[]>(backend_roles);
+    getRoles(): Observable<string[]> {
+        return this.http.get<string[]>(backend_roles);
     }
 
     isAdmin(user: User): Observable<boolean> {
-        return this.availableRolesSubject.asObservable().pipe(
-            map(roles => {
-                const adminRole: Role | undefined = roles.find(role => role.role_name === "Admin");
-                if (adminRole && user.roles.find(role => role._id === adminRole._id)) {
-                    return true;
-                } else {
-                    return true;
-                }
-            })
-        )
+        if (user.roles.find(role => role === "Admin")) {
+            return of(true);
+        } else {
+            return of(false);
+        }
     }
 }

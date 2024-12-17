@@ -1,9 +1,8 @@
 import { ActivatedRouteSnapshot, ResolveFn } from "@angular/router";
 import { inject } from "@angular/core";
-import { Role } from "../models/role-model";
 import { RoleService } from "../sevices/role.service";
 
-export const RoleResolver: ResolveFn<Role[]> = (
+export const RoleResolver: ResolveFn<string[]> = (
     route: ActivatedRouteSnapshot,
 ) => {
     const roleService = inject(RoleService);
