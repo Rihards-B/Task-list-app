@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { CommonModule } from '@angular/common';
-import { AuthService } from 'src/app/sevices/auth.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { PasswordsMatch } from 'src/app/validators/matching.validator';
 import { AuthStore } from 'src/app/store/auth/auth.store';
