@@ -10,7 +10,7 @@ import { backend_translations } from "../constants/endpoints";
 export class TranslationLoader implements TranslateLoader {
     constructor(private http: HttpClient) {}
 
-    getTranslation(lang: string): Observable<any> {
+    getTranslation(lang: string): Observable<Object> {
         return this.http.get<Object>(backend_translations + lang);
     }
 }
