@@ -7,6 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslationLoader } from './sevices/translation.loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),
@@ -16,13 +17,9 @@ export const appConfig: ApplicationConfig = {
   importProvidersFrom([TranslateModule.forRoot({
     loader: {
       provide: TranslateLoader,
-      useFactory: HttpLoaderFactory,
+      useClass: TranslationLoader,
       deps: [HttpClient]
     }
   })])
   ]
-};
-
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
