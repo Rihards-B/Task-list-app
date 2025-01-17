@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import { BehaviorSubject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthStore } from 'src/app/store/auth/auth.store';

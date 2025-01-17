@@ -24,7 +24,7 @@
             </app-form-error>
         </div>
         <div>
-            <label for="assignedTo">{{'assignedTo' | translate}}:</label><br>
+            <label for="assignedTo">{{'assigned.to' | translate}}:</label><br>
             <select formControlName="assignedTo">
                 @for (user of users$ | async; track user) {
                 <option [value]="user.username">
@@ -49,7 +49,7 @@
             </app-form-error>
         </div>
         <div>
-            <label for="createdOn">{{'createdOn' | translate}}:</label><br>
+            <label for="createdOn">{{'created.on' | translate}}:</label><br>
             <input type="datetime" formControlName="createdOn">
             <app-form-error [control]="formGroup.controls['createdOn']">
             </app-form-error>

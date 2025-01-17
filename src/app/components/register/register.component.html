@@ -13,25 +13,25 @@
             </app-form-error>
         </div>
         <div>
-            <label for="confirmPassword">Confirm password:</label><br>
+            <label for="confirmPassword">{{'form.input.confirm.password' | translate}}</label><br>
             <input type="password" formControlName="confirmPassword"><br>
-            <app-form-error fieldName="Confirm password" [control]="formGroup.controls['confirmPassword']">
+            <app-form-error fieldName="confirmPassword" [control]="formGroup.controls['confirmPassword']">
             </app-form-error>
         </div>
         <div>
-            <label for="firstName">First name:</label><br>
+            <label for="firstName">{{'first.name' | translate}}:</label><br>
             <input type="firstName" formControlName="firstName"><br>
-            <app-form-error fieldName="First name" [control]="formGroup.controls['firstName']">
+            <app-form-error fieldName="firstName" [control]="formGroup.controls['firstName']">
             </app-form-error>
         </div>
         <div>
-            <label for="lastName">Last name:</label><br>
+            <label for="lastName">{{'last.name' | translate}}:</label><br>
             <input type="lastName" formControlName="lastName"><br>
-            <app-form-error fieldName="Last name" [control]="formGroup.controls['lastName']">
+            <app-form-error fieldName="lastName" [control]="formGroup.controls['lastName']">
             </app-form-error>
         </div>
         <div class="centered">
-            <button #submitButton type="submit" >Register</button>
+            <button #submitButton type="submit" [disabled]="!formGroup.valid">{{'register' | translate}}</button>
         </div>
     </form>
     <div class="centered error">

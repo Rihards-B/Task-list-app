@@ -1,25 +1,24 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.service';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import { TaskListComponent } from '../task-list/task-list.component';
 import { EventEmitter } from '@angular/core';
 import { taskStatus, taskType } from 'src/app/constants/taskConstants';
 import { Task } from 'src/app/models/task.model';
 import { UserService } from 'src/app/sevices/user.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from 'src/app/store/app.store';
 import { Store } from '@ngrx/store';
 import { getTasks } from 'src/app/store/task/task.actions';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, RouterModule, CommonModule, TranslateModule],
+  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TranslateModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })
