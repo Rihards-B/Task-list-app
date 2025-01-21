@@ -13,6 +13,29 @@
             <input type="text" formControlName="lastName">
         </div>
         <div>
+            <label for="groups">Groups:</label><br>
+            @for (group of user.groups; track group) {
+                <div>
+                    <app-remove-button text="X" [keyToRemove]="group" (removeKey)="removeGroup($event)" [disabled]="!userIsAdmin"></app-remove-button>
+                    {{group}}
+                </div>
+            }
+            @if (user && userIsAdmin) {
+                @if (unusedGroups && unusedGroups.length > 0) {
+                    <div [formGroup]="addGroupFormGroup">
+                        <label>Add Group: </label>
+                        <select formControlName="addGroup" (change)="addGroup()">
+                            @for (group of unusedGroups; track group) {
+                            <option [value]="group">
+                                {{group}}
+                            </option>   
+                            }
+                        </select>
+                    </div>
+                }
+            }
+        </div>
+        <div>
             <label for="Roles">
                 {{'roles' | translate}}: <br>
                     @for (role of user.roles; track role) {
