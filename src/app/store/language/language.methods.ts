@@ -10,10 +10,8 @@ export function withLanguageSignalMethods() {
             return {
                 initLanguageStore(): void {
                     if (isPlatformBrowser(platformID)) {
-                        const lang: string | null = localStorage.getItem("lang");
-                        if (lang) {
-                            this.switchLanguage(lang);
-                        }
+                        const lang: string = localStorage.getItem("lang") ?? "en";
+                        this.switchLanguage(lang);
                     }
                 },
                 switchLanguage(lang: string): void {
