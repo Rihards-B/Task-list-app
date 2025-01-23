@@ -25,7 +25,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   user: User = this.activatedRoute.snapshot.data["user"];
   roles: string[] = this.activatedRoute.snapshot.data["roles"];
   unusedGroups: string[] = [];
-  groups: string[] = ["Group A", "Group B", "Group C"]; // Temp dummy groups
+  groups: string[] = this.activatedRoute.snapshot.data["groups"];
   unusedRoles: string[] = [];
   userRoles: Subject<string[]> = new BehaviorSubject<string[]>([]);
   userIsAdmin: boolean = false;

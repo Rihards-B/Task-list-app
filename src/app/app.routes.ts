@@ -11,15 +11,18 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { UserResolver } from './resolvers/user-resolver';
 import { RoleResolver } from './resolvers/role.resolver';
 import { isAdminGuard } from './guards/role.guard';
+import { GroupResolver } from './resolvers/group.resolver';
+import { GroupManagementComponent } from './components/group-management/group-management.component';
 
 export const routes: Routes = [
     { path: "", component: TasksCardComponent, canActivate: [loggedInGuard] },
     { path: "add-task", component: AddTaskFormComponent, canActivate: [loggedInGuard] },
     { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver } },
-    { path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [loggedInGuard] },
+    { path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver, groups: GroupResolver }, canActivate: [loggedInGuard] },
     { path: "users/:id", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [isAdminGuard] },
     { path: "register", component: RegisterComponent, canActivate: [blockLoggedInUserGuard] },
     { path: "login", component: LoginComponent, canActivate: [blockLoggedInUserGuard] },
+    { path: "groups", component: GroupManagementComponent, resolve: { groups: GroupResolver }, canActivate: [isAdminGuard] },
     { path: "404", component: PageNotFoundComponent },
     { path: "**", redirectTo: "/404" }
 ];
