@@ -8,6 +8,6 @@
     <form [formGroup]="createGroupformGroup" (ngSubmit)="createGroup()">
         <label for="groupName">New group name:</label>
         <input type="text" formControlName="groupName" />
-        <button type="submit">Create!</button>
+        <button type="submit" [disabled]="!createGroupformGroup.valid">Create!</button>
     </form>
 </div>

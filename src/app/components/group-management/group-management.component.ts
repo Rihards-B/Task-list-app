@@ -5,6 +5,7 @@ import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.compo
 import { GroupService } from 'src/app/sevices/group.service';
 import { MatDialog } from '@angular/material/dialog'
 import { EditGroupComponent } from '../edit-group/edit-group.component';
+import { uniqueGroupName } from 'src/app/validators/uniqueGroupName.validator';
 
 @Component({
   selector: 'app-group-management',
@@ -16,7 +17,7 @@ import { EditGroupComponent } from '../edit-group/edit-group.component';
 export class GroupManagementComponent {
   groups = this.activatedRoute.snapshot.data["groups"];
   createGroupformGroup: FormGroup = this.formBuilder.group({
-    groupName: ["", Validators.required],
+    groupName: ["", [Validators.required, Validators.pattern('[a-zA-Z1-9_]*')], [uniqueGroupName()]],
   })
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -38,6 +39,5 @@ export class GroupManagementComponent {
 
   edit(groupName: string) {
     this.dialog.open(EditGroupComponent, { data: { groupName: groupName } });
-    console.log(groupName);
   }
 }
