@@ -5,5 +5,6 @@ export type Task = {
     type: string,
     status: string,
     _id?: string,
-    assignedTo?: string
+    assignedTo?: string,
+    groups: string[]
 } 
