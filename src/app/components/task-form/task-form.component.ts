@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterModule } from '@angular/router';
 import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.service';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import { TaskListComponent } from '../task-list/task-list.component';
 import { EventEmitter } from '@angular/core';
 import { taskStatus, taskType } from 'src/app/constants/taskConstants';
 import { Task } from 'src/app/models/task.model';
@@ -19,7 +18,7 @@ import { getTasks } from 'src/app/store/task/task.actions';
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TaskListComponent, RouterModule, CommonModule, TranslateModule],
+  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, RouterModule, CommonModule, TranslateModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })
