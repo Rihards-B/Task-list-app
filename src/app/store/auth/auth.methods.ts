@@ -52,12 +52,14 @@ export function withAuthSignalMethods() {
                                         localStorage.setItem("isLoggedIn", "true")
                                         router.navigateByUrl("/");
                                     }
+                                    if (response.errors) {
+                                        patchState(store, { errors: response.errors });
+                                    }
                                 },
                                 (error: HttpErrorResponse) => {
                                     console.log(error.error);
                                     patchState(store, { errors: error.error.messages });
                                 }
-
                             )
                         )
                     }))
