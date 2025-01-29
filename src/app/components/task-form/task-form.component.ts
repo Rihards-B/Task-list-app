@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.service';
@@ -18,7 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TranslateModule],
+  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, TranslateModule, CommonModule],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })
@@ -34,8 +34,7 @@ export class TaskFormComponent implements OnInit {
   taskStatuses = Object.values(taskStatus).filter(value => typeof value === 'string');
   users$: Observable<User[]> = this.userService.getUsers();
   formGroup: FormGroup = this.formBuilder.group({
-    title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]
-    ],
+    title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]],
     description: [""],
     type: ["", Validators.required],
     status: ["incomplete", Validators.required],
