@@ -17,7 +17,7 @@ import { GroupManagementComponent } from './components/group-management/group-ma
 export const routes: Routes = [
     { path: "", component: TasksCardComponent, canActivate: [loggedInGuard] },
     { path: "add-task", component: AddTaskFormComponent, canActivate: [loggedInGuard] },
-    { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver } },
+    { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver, groups: GroupResolver } },
     { path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver }, canActivate: [loggedInGuard] },
     { path: "users/:id", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver, groups: GroupResolver }, canActivate: [isAdminGuard] },
     { path: "register", component: RegisterComponent, canActivate: [blockLoggedInUserGuard] },

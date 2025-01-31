@@ -1,7 +1,7 @@
 import { CommonModule, formatDate } from '@angular/common';
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TaskFormValidationService } from 'src/app/sevices/taskFormValidation.service';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { EventEmitter } from '@angular/core';
@@ -14,11 +14,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from 'src/app/store/app.store';
 import { Store } from '@ngrx/store';
 import { getTasks } from 'src/app/store/task/task.actions';
+import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, RouterModule, CommonModule, TranslateModule],
+  imports: [FormErrorComponent, ReactiveFormsModule, FormsModule, RouterModule, CommonModule, TranslateModule, RemoveButtonComponent],
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.scss'
 })
@@ -33,41 +34,70 @@ export class TaskFormComponent implements OnInit {
   taskTypes = Object.values(taskType).filter(value => typeof value === 'string');
   taskStatuses = Object.values(taskStatus).filter(value => typeof value === 'string');
   users$: Observable<User[]> = this.userService.getUsers();
-  formGroup: FormGroup = this.formBuilder.group({
+  groups: string[] = this.activatedRoute.snapshot.data["groups"];
+  unusedGroups: string[] = [];
+  taskFormGroup: FormGroup = this.formBuilder.group({
     title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]
     ],
     description: [""],
     type: ["", Validators.required],
     status: ["incomplete", Validators.required],
+    groups: [""],
     createdOn: [formatDate(0, "yyyy-MM-dd", "en")],
     assignedTo: ["UNASSIGNED", Validators.required],
     _id: [null]
-  })
+  });
+  addGroupFormGroup: FormGroup = this.formBuilder.group({
+    addGroup: [""]
+  });
 
   constructor(private formBuilder: FormBuilder,
     private taskFormValidationService: TaskFormValidationService,
     private userService: UserService,
-    private store: Store<AppState>) {};
+    private store: Store<AppState>,
+    private activatedRoute: ActivatedRoute) {};
 
   ngOnInit(): void {
     this.store.dispatch(getTasks());
     if (this.task) {
-      this.formGroup.patchValue(this.task);
-      this.formGroup.controls["title"].setValidators([
+      this.taskFormGroup.patchValue(this.task);
+      this.taskFormGroup.controls["title"].setValidators([
         // Title can be the same as original task
         this.taskFormValidationService.uniqueTitle(this.task.title),
         Validators.required
       ])
-      this.formGroup.disable();
+      this.updateUnusedGroups();
+      this.taskFormGroup.disable();
+      this.addGroupFormGroup.disable();
     }
   }
 
-  submit(formGroup: FormGroup) {
-    this.formSubmitted.emit(formGroup.value);
+  submit(taskFormGroup: FormGroup) {
+    this.formSubmitted.emit(taskFormGroup.value);
   }
 
   enableEdit() {
     this.editing = true;
-    this.formGroup.enable();
+    this.taskFormGroup.enable();
+    this.addGroupFormGroup.enable();
+  }
+
+  updateUnusedGroups() {
+    this.unusedGroups = this.groups?.filter(group => !(this.task?.groups.some(taskGroup => taskGroup === group)));
+  }
+
+  addGroup() {
+    this.task?.groups.push(this.addGroupFormGroup.controls["addGroup"].value);
+    this.updateUnusedGroups();
+  }
+
+  removeGroup(groupName: string) {
+    if (this.task) {
+      let groupIndex: number = this.task?.groups.indexOf(groupName);
+      if (groupIndex !== -1) {
+        this.task?.groups.splice(groupIndex, 1);
+        this.updateUnusedGroups();
+      }
+    }
   }
 }
