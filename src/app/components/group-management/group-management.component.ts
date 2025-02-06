@@ -6,11 +6,12 @@ import { GroupService } from 'src/app/sevices/group.service';
 import { MatDialog } from '@angular/material/dialog'
 import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { uniqueGroupName } from 'src/app/validators/uniqueGroupName.validator';
+import { FormErrorComponent } from '../form-error/form-error.component';
 
 @Component({
   selector: 'app-group-management',
   standalone: true,
-  imports: [RemoveButtonComponent, ReactiveFormsModule, FormsModule],
+  imports: [RemoveButtonComponent, ReactiveFormsModule, FormsModule, FormErrorComponent],
   templateUrl: './group-management.component.html',
   styleUrl: './group-management.component.scss'
 })
