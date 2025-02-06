@@ -35,6 +35,23 @@
             <app-form-error [control]="taskFormGroup.controls['assignedTo']">
             </app-form-error>
         </div>
+        <div [formGroup]="addGroupFormGroup">
+            <label for="groups">Groups:</label><br>
+                @for (group of taskFormGroup.controls["groups"].value; track $index) {
+                    <app-remove-button text="X" [keyToRemove]="group" (removeKey)="removeGroup($event)" [disabled]="addGroupFormGroup.disabled"></app-remove-button>
+                    {{group}}<br>
+                }
+            @if(unusedGroups.length > 0){ 
+                <label for="addNewGroups">Add group:</label>
+                <select formControlName="addGroup" (change)="addGroup()">
+                    @for (group of unusedGroups; track group) {
+                    <option [value]="group">
+                        {{group}}
+                    </option>   
+                    }
+                </select>
+            }
+        </div>
         @if(formType == "Edit") {
         <div>
             <label for="status">{{'status' | translate}}:</label><br>
@@ -47,25 +64,6 @@
             </select>
             <app-form-error [control]="taskFormGroup.controls['status']">
             </app-form-error>
-        </div>
-        <div [formGroup]="addGroupFormGroup">
-            <label for="groups">Groups:</label><br>
-            @if (task) {
-                @for (group of task.groups; track $index) {
-                    <app-remove-button text="X" [keyToRemove]="group" (removeKey)="removeGroup($event)" [disabled]="addGroupFormGroup.disabled"></app-remove-button>
-                    {{group}}<br>
-                }
-            }
-            @if(unusedGroups.length > 0){ 
-                <label for="addNewGroups">Add group:</label>
-                <select formControlName="addGroup" (change)="addGroup()">
-                    @for (group of unusedGroups; track group) {
-                    <option [value]="group">
-                        {{group}}
-                    </option>   
-                    }
-                </select>
-            }
         </div>
         <div>
             <label for="createdOn">{{'created.on' | translate}}:</label><br>

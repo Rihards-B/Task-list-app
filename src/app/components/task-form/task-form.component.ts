@@ -42,7 +42,7 @@ export class TaskFormComponent implements OnInit {
     description: [""],
     type: ["", Validators.required],
     status: ["incomplete", Validators.required],
-    groups: [""],
+    groups: [[]],
     createdOn: [formatDate(0, "yyyy-MM-dd", "en")],
     assignedTo: ["UNASSIGNED", Validators.required],
     _id: [null]
@@ -59,6 +59,7 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getTasks());
+    this.updateUnusedGroups();
     if (this.task) {
       this.taskFormGroup.patchValue(this.task);
       this.taskFormGroup.controls["title"].setValidators([
@@ -66,7 +67,6 @@ export class TaskFormComponent implements OnInit {
         this.taskFormValidationService.uniqueTitle(this.task.title),
         Validators.required
       ])
-      this.updateUnusedGroups();
       this.taskFormGroup.disable();
       this.addGroupFormGroup.disable();
     }
@@ -83,11 +83,12 @@ export class TaskFormComponent implements OnInit {
   }
 
   updateUnusedGroups() {
-    this.unusedGroups = this.groups?.filter(group => !(this.task?.groups.some(taskGroup => taskGroup === group)));
+    const usedGroups: string[] = this.taskFormGroup.controls["groups"].value;
+    this.unusedGroups = this.groups?.filter(group => !(usedGroups.some(taskGroup => taskGroup === group)));
   }
 
   addGroup() {
-    this.task?.groups.push(this.addGroupFormGroup.controls["addGroup"].value);
+    this.taskFormGroup.controls["groups"].value.push(this.addGroupFormGroup.controls["addGroup"].value);
     this.updateUnusedGroups();
   }
 
