@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TasksCardComponent } from './components/tasks-card/tasks-card.component';
 import { NavComponent } from "./components/nav/nav.component";
 
 @Component({
