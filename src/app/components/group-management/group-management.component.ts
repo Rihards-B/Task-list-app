@@ -7,8 +7,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { uniqueGroupName } from 'src/app/validators/uniqueGroupName.validator';
 import { FormErrorComponent } from '../form-error/form-error.component';
-import { TasksCardComponent } from '../tasks-card/tasks-card.component';
-import { map, take } from 'rxjs';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-group-management',

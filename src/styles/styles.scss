@@ -51,6 +51,8 @@ body {
 }
 
 .card {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     background-color: colors.$bg-normal;
     width: 30vw;
