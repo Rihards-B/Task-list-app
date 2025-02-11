@@ -13,7 +13,7 @@ import { getTasks, removeTask } from 'src/app/store/task/task.actions';
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [HttpClientModule, NgFor, NgIf, TaskComponent, RemoveButtonComponent, CommonModule, TranslateModule],
+  imports: [HttpClientModule, NgFor, TaskComponent, RemoveButtonComponent, CommonModule, TranslateModule],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss',
 })
