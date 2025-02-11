@@ -10,7 +10,7 @@
                 <a routerLink="login">{{'login' | translate}}</a>
             } @else {
                 @if (currentUser()?.roles?.includes("Admin")) {
-                    <a [routerLink]="'/groups'">Groups</a>
+                    <a [routerLink]="'/groups'">{{'groups' | translate}}</a>
                 }
                 <a class="username" [routerLink]="'/users/current'">
                     {{currentUser()?.firstName}}

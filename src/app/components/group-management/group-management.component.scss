@@ -2,10 +2,16 @@
     padding: 1rem;
     overflow-y: scroll;
     max-height: 35vh;
+    width: auto;
 }
 
 .groupName {
     font-size: 2rem;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
 }
 
 label {
@@ -14,6 +20,11 @@ label {
 
 form {
     padding-top: 1rem;
+    display: flex;
+}
+
+input {
+    flex-grow: 1;
 }
 
 form * {

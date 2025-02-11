@@ -8,11 +8,12 @@ import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { uniqueGroupName } from 'src/app/validators/uniqueGroupName.validator';
 import { FormErrorComponent } from '../form-error/form-error.component';
 import { take } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-group-management',
   standalone: true,
-  imports: [RemoveButtonComponent, ReactiveFormsModule, FormsModule, FormErrorComponent],
+  imports: [RemoveButtonComponent, ReactiveFormsModule, FormsModule, FormErrorComponent, TranslateModule],
   templateUrl: './group-management.component.html',
   styleUrl: './group-management.component.scss'
 })
