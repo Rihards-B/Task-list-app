@@ -20,7 +20,7 @@ import { map, take } from 'rxjs';
 export class GroupManagementComponent {
   groups = this.activatedRoute.snapshot.data["groups"];
   createGroupformGroup: FormGroup = this.formBuilder.group({
-    groupName: ["", [Validators.required, Validators.pattern('[a-zA-Z0-9_]*')], [uniqueGroupName()]],
+    groupName: ["", { updateOn: 'blur', validators: [Validators.required, Validators.pattern('[a-zA-Z0-9_]*')], asyncValidators: [uniqueGroupName()] }],
   })
 
   constructor(private activatedRoute: ActivatedRoute,
