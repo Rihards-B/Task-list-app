@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { EditGroupComponent } from '../edit-group/edit-group.component';
 import { uniqueGroupName } from 'src/app/validators/uniqueGroupName.validator';
 import { FormErrorComponent } from '../form-error/form-error.component';
+import { TasksCardComponent } from '../tasks-card/tasks-card.component';
+import { map, take } from 'rxjs';
 
 @Component({
   selector: 'app-group-management',
@@ -18,7 +20,7 @@ import { FormErrorComponent } from '../form-error/form-error.component';
 export class GroupManagementComponent {
   groups = this.activatedRoute.snapshot.data["groups"];
   createGroupformGroup: FormGroup = this.formBuilder.group({
-    groupName: ["", [Validators.required, Validators.pattern('[a-zA-Z1-9_]*')], [uniqueGroupName()]],
+    groupName: ["", [Validators.required, Validators.pattern('[a-zA-Z0-9_]*')], [uniqueGroupName()]],
   })
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -31,6 +33,7 @@ export class GroupManagementComponent {
     console.log(groupName);
     this.groupService.addGroup(groupName).subscribe();
     this.groups.push(groupName);
+    this.createGroupformGroup.reset();
   }
 
   deleteGroup(groupName: string) {
@@ -39,6 +42,15 @@ export class GroupManagementComponent {
   }
 
   edit(groupName: string) {
-    this.dialog.open(EditGroupComponent, { data: { groupName: groupName } });
+    this.dialog.open(EditGroupComponent, { data: { groupName: groupName } })
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((res) => {
+        if (res) {
+          this.groupService.getGroups().pipe(take(1)).subscribe(groups => {
+            this.groups = groups;
+          })
+        }
+      });
   }
 }

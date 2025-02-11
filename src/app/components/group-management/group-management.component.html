@@ -1,12 +1,16 @@
-@for (group of groups; track $index) {
+<div class="card">
+    @for (group of groups; track $index) {
     <div>
         <app-remove-button text="X" [keyToRemove]="group" (removeKey)="deleteGroup($event)"></app-remove-button>
-        <span (click)="edit(group)">{{group}}</span>
+        <span class="groupName" (click)="edit(group)">
+            {{group}}
+        </span>
     </div>
-}
+    }
+</div>
 <div>
     <form [formGroup]="createGroupformGroup" (ngSubmit)="createGroup()">
-        <label for="groupName">New group name:</label>
+        <label for="groupName">New group name: </label>
         <input type="text" formControlName="groupName" />
         <button type="submit" [disabled]="!createGroupformGroup.valid">Create!</button><br>
         <app-form-error [control]="createGroupformGroup.controls['groupName']"></app-form-error>
