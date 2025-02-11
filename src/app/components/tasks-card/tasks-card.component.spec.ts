@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TasksCardComponent } from './tasks-card.component';
 import { provideStore } from '@ngrx/store';
 import { appStore } from 'src/app/store/app.store';
@@ -34,4 +33,9 @@ describe('TasksCardComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should not create if not logged in', () => {
+    const listElement = fixture.debugElement.children.find(el => el.name === "app-task-list");
+    expect(listElement).toBeFalsy();
+  })
 });
