@@ -89,16 +89,16 @@ export class TaskFormComponent implements OnInit {
 
   addGroup() {
     this.taskFormGroup.controls["groups"].value.push(this.addGroupFormGroup.controls["addGroup"].value);
+    this.addGroupFormGroup.reset();
     this.updateUnusedGroups();
   }
 
   removeGroup(groupName: string) {
-    if (this.task) {
-      let groupIndex: number = this.task?.groups.indexOf(groupName);
-      if (groupIndex !== -1) {
-        this.task?.groups.splice(groupIndex, 1);
-        this.updateUnusedGroups();
-      }
+    const groups = this.taskFormGroup.controls["groups"].value;
+    const groupIndex: number = groups.indexOf(groupName);
+    if (groupIndex !== -1) {
+      groups.splice(groupIndex, 1);
+      this.updateUnusedGroups();
     }
   }
 }
