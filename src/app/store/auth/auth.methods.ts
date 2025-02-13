@@ -71,7 +71,6 @@ export function withAuthSignalMethods() {
                                     patchState(store, { isLoggedIn: true, currentUser: user });
                                 },
                                 (error: HttpErrorResponse) => {
-                                    console.log("Error getting current user");
                                     patchState(store, { isLoggedIn: false, currentUser: null });
                                 }
                             )
