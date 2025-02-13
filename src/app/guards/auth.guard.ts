@@ -1,4 +1,4 @@
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from "@angular/router";
 import { inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { AuthStore } from "../store/auth/auth.store";
@@ -12,13 +12,19 @@ export const loggedInGuard: CanActivateFn = (
     // Don't let the angular server make api calls that need authorization
     if (isPlatformBrowser(inject(PLATFORM_ID))) {
         const authStore = inject(AuthStore);
+        const router = inject(Router);
 
         const isloggedin$ = toObservable(authStore.isLoggedIn);
 
         return isloggedin$.pipe(
             filter(value => value !== null),
             map((value) => {
-                return value ? true : false;
+                if (!value) {
+                    router.navigateByUrl("/login")
+                } else {
+                    return true;
+                }
+                return false;
             })
         )
     } else {

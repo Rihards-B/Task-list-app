@@ -36,7 +36,7 @@ export function withAuthSignalMethods() {
                             tap(() => {
                                 console.log("Logging out!");
                                 patchState(store, { isLoggedIn: false, currentUser: null });
-                                router.navigateByUrl("/login");
+                                window.location.reload();
                             })
                         )
                     }))
