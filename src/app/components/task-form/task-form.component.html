@@ -1,91 +1,87 @@
 @if (taskFormGroup) {
-    <form class="flex form" [formGroup]="taskFormGroup" (ngSubmit)="submit(taskFormGroup)">
-        <div>
-            <label for="title">{{'title' | translate}}:</label><br>
-            <input type="text" formControlName="title">
-            <app-form-error [control]="taskFormGroup.controls['title']">
-            </app-form-error>
-        </div>
-        <div>
-            <label for="description">{{'description' | translate}}:</label><br>
-            <textarea formControlName="description">
+<form class="flex form" [formGroup]="taskFormGroup" (ngSubmit)="submit(taskFormGroup)">
+    <div>
+        <label for="title">{{'title' | translate}}:</label><br>
+        <input type="text" formControlName="title">
+        <app-form-error [control]="taskFormGroup.controls['title']">
+        </app-form-error>
+    </div>
+    <div>
+        <label for="description">{{'description' | translate}}:</label><br>
+        <textarea formControlName="description">
             </textarea>
-        </div>
-        <div>
-            <label for="type">{{'type' | translate}}:</label><br>
-            <select formControlName="type">
-                @for (type of taskTypes; track type) {
-                <option [value]="type">
-                    {{type.toString().toLowerCase()| translate}}
-                </option>   
-                }
-            </select>
-            <app-form-error [control]="taskFormGroup.controls['type']">
-            </app-form-error>
-        </div>
-        <div>
-            <label for="assignedTo">{{'assigned.to' | translate}}:</label><br>
-            <select formControlName="assignedTo">
-                @for (user of users$ | async; track user) {
-                <option [value]="user.username">
-                    {{user.firstName}} {{user.lastName}} {{user.username}}
-                </option>   
-                }
-            </select>
-            <app-form-error [control]="taskFormGroup.controls['assignedTo']">
-            </app-form-error>
-        </div>
-        <div [formGroup]="addGroupFormGroup">
-            <label for="groups">Groups:</label><br>
-                @for (group of taskFormGroup.controls["groups"].value; track $index) {
-                    <app-remove-button text="X" [keyToRemove]="group" (removeKey)="removeGroup($event)" [disabled]="addGroupFormGroup.disabled"></app-remove-button>
-                    {{group}}<br>
-                }
-            @if(unusedGroups.length > 0){ 
-                <label for="addNewGroups">Add group:</label>
-                <select formControlName="addGroup" (change)="addGroup()">
-                    @for (group of unusedGroups; track group) {
-                    <option [value]="group">
-                        {{group}}
-                    </option>   
-                    }
-                </select>
+    </div>
+    <div>
+        <label for="type">{{'type' | translate}}:</label><br>
+        <select formControlName="type">
+            @for (type of taskTypes; track type) {
+            <option [value]="type">
+                {{type.toString().toLowerCase()| translate}}
+            </option>
             }
-        </div>
-        @if(formType == "Edit") {
-        <div>
-            <label for="status">{{'status' | translate}}:</label><br>
-            <select formControlName="status">
-                @for (status of taskStatuses; track status) {
-                <option [value]="status">
-                    {{status.toString().toLowerCase() | translate}}
-                </option>   
-                }
-            </select>
-            <app-form-error [control]="taskFormGroup.controls['status']">
-            </app-form-error>
-        </div>
-        <div>
-            <label for="createdOn">{{'created.on' | translate}}:</label><br>
-            <input type="datetime" formControlName="createdOn">
-            <app-form-error [control]="taskFormGroup.controls['createdOn']">
-            </app-form-error>
-        </div>
-        <div>
-            <label for="_id">ID:</label><br>
-            <input type="string" formControlName="_id">
-            <app-form-error [control]="taskFormGroup.controls['_id']">
-            </app-form-error>
-        </div>
+        </select>
+        <app-form-error [control]="taskFormGroup.controls['type']">
+        </app-form-error>
+    </div>
+    <div>
+        <label for="assignedTo">{{'assigned.to' | translate}}:</label><br>
+        <select formControlName="assignedTo">
+            @for (user of users$ | async; track user) {
+            <option [value]="user.username">
+                {{user.firstName}} {{user.lastName}} {{user.username}}
+            </option>
+            }
+        </select>
+        <app-form-error [control]="taskFormGroup.controls['assignedTo']">
+        </app-form-error>
+    </div>
+    <div [formGroup]="addGroupFormGroup">
+        <label for="groups">Groups:</label><br>
+        @for (group of taskFormGroup.controls["groups"].value; track $index) {
+        <app-remove-button text="X" [keyToRemove]="group" (removeKey)="removeGroup($event)"
+            [disabled]="addGroupFormGroup.disabled"></app-remove-button>
+        {{group}}<br>
         }
-        @if(formType == "Create" || editing){
-            <div>
-                <button #submitButton type="submit" class="button round" [disabled]="!taskFormGroup.valid">{{submitText | translate}}</button>
-            </div>
-        } @else {
-            <div>
-                <button type="button" class="button round" (click)="enableEdit()">{{'edit' | translate}}</button>
-            </div>
+        @if(unusedGroups.length > 0){
+        <label for="addNewGroups">Add group:</label>
+        <select formControlName="addGroup" (change)="addGroup()">
+            @for (group of unusedGroups; track group) {
+            <option [value]="group">
+                {{group}}
+            </option>
+            }
+        </select>
         }
-    </form>
+    </div>
+    @if(formType == "Edit") {
+    <div>
+        <label for="status">{{'status' | translate}}:</label><br>
+        <select formControlName="status">
+            @for (status of taskStatuses; track status) {
+            <option [value]="status">
+                {{status.toString().toLowerCase() | translate}}
+            </option>
+            }
+        </select>
+        <app-form-error [control]="taskFormGroup.controls['status']">
+        </app-form-error>
+    </div>
+    <div>
+        <label for="createdOn">{{'created.on' | translate}}:</label><br>
+        <input type="datetime" formControlName="createdOn">
+        <app-form-error [control]="taskFormGroup.controls['createdOn']">
+        </app-form-error>
+    </div>
+    }
+    @if(formType == "Create" || editing){
+    <div>
+        <button #submitButton type="submit" class="button round" [disabled]="!taskFormGroup.valid">{{submitText |
+            translate}}</button>
+    </div>
+    } @else {
+    <div>
+        <button type="button" class="button round" (click)="enableEdit()">{{'edit' | translate}}</button>
+    </div>
+    }
+</form>
 }
