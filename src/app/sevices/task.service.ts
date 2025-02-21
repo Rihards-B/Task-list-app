@@ -44,6 +44,6 @@ export class TaskService {
   // PUT /tasks/assign
   // Updates an existing tasks assignedTo or groups
   updateTaskAssignment(_id: string, assignedTo?: string, groups?: string[]) {
-    return this.http.put<Object>(backend_tasks + "assign", { _id: _id, assignedTo: assignedTo, groups: groups });
+    return this.http.put<Object>(BACKEND_TASKS + "assign", { _id: _id, assignedTo: assignedTo, groups: groups });
   }
 }
