@@ -59,9 +59,9 @@ export class TaskFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getTasks());
-    this.updateUnusedGroups();
     if (this.task) {
       this.taskFormGroup.patchValue(this.task);
+      this.updateUnusedGroups();
       this.taskFormGroup.controls["title"].setValidators([
         // Title can be the same as original task
         this.taskFormValidationService.uniqueTitle(this.task.title),
