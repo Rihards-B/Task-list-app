@@ -16,6 +16,10 @@ export class RoleService {
         return this.http.get<string[]>(backend_roles);
     }
 
+    hasRole(user: User, roleName: string) {
+        return user.roles.find(role => role === roleName) ? true : false;
+    }
+
     isAdmin(user: User): boolean {
         if (user.roles.find(role => role === "Admin")) {
             return true;
