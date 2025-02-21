@@ -16,12 +16,10 @@
             <label for="Roles">
                 {{'roles' | translate}}: <br>
                     @for (role of user.roles; track role) {
-                    <div>
                         <div class="role" >
                             <app-remove-button text="X" [keyToRemove]="role" (removeKey)="removeRole($event)" [disabled]="role==='User' || !userIsAdmin"></app-remove-button>
                             <app-role [role]="role"></app-role>
                         </div>
-                    </div>
                 }
             </label><br>
             @if (user && userIsAdmin) {

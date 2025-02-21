@@ -1,43 +1,34 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Task } from '../../models/task.model';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { TaskComponent } from '../task/task.component';
-import { TaskService } from '../../sevices/task.service';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
 import { TranslateModule } from '@ngx-translate/core';
+import { AppState } from 'src/app/store/app.store';
+import { Store } from '@ngrx/store';
+import { getTasks, removeTask } from 'src/app/store/task/task.actions';
 
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [HttpClientModule, NgFor, NgIf, TaskComponent, RemoveButtonComponent, CommonModule, TranslateModule],
+  imports: [HttpClientModule, NgFor, TaskComponent, RemoveButtonComponent, CommonModule, TranslateModule],
   templateUrl: './task-list.component.html',
-  styleUrl: './task-list.component.scss'
+  styleUrl: './task-list.component.scss',
 })
-export class TaskListComponent implements OnInit, OnDestroy {
-  completedTasksSubscription = Subscription.EMPTY;
-  tasksCompleted: number = 0;
-  deleteSubscription = Subscription.EMPTY;
-  tasks$: Observable<Task[]> = this.taskService.tasksSubject.asObservable();
 
-  constructor(private http: HttpClient, private taskService: TaskService) {}
+export class TaskListComponent implements OnInit {
+  tasksCompleted$: Observable<number> = this.store.select(state => state.task.completedTasks);
+  tasks$: Observable<Task[]> = this.store.select(state => state.task.tasks)
 
+  constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-    this.taskService.refresh();
-    this.completedTasksSubscription = this.taskService.tasksCompleteSubject.subscribe((completeCount) => {
-      this.tasksCompleted = completeCount;
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.completedTasksSubscription.unsubscribe();
+    this.store.dispatch(getTasks());
   }
 
   removeTask(taskID: string) {
-    this.deleteSubscription = this.taskService.removeTaskByID(taskID).subscribe(() => {
-      this.taskService.refresh();
-    });
+    this.store.dispatch(removeTask({ id: taskID }));
   }
 }
