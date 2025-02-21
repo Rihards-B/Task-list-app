@@ -13,7 +13,6 @@ export function hasSomeRole(roles: string[]): CanActivateFn {
             const roleService = inject(RoleService);
 
             const currentUser$ = toObservable(authStore.currentUser);
-
             return currentUser$.pipe(
                 filter(user => user != null),
                 map(user => {

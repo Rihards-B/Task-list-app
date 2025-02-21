@@ -1,7 +1,7 @@
-export const backend = "http://localhost:3131/";
-export const backend_tasks = backend + "tasks/";
-export const backend_users = backend + "users/";
-export const backend_auth = backend + "auth/";
-export const backend_roles = backend + "roles/";
-export const backend_translations = backend + "translations/";
-export const backend_groups = backend + "groups/";
+export const BACKEND = "http://localhost:3131/";
+export const BACKEND_TASKS = BACKEND + "tasks/";
+export const BACKEND_USERS = BACKEND + "users/";
+export const BACKEND_AUTH = BACKEND + "auth/";
+export const BACKEND_ROLES = BACKEND + "roles/";
+export const BACKEND_TRANSLATIONS = BACKEND + "translations/";
+export const BACKEND_GROUPS = BACKEND + "groups/";

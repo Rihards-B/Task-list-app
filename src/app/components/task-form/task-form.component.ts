@@ -10,11 +10,11 @@ import { Task } from 'src/app/models/task.model';
 import { UserService } from 'src/app/sevices/user.service';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user.model';
-import { TranslateModule } from '@ngx-translate/core';
 import { AppState } from 'src/app/store/app.store';
 import { Store } from '@ngrx/store';
 import { getTasks } from 'src/app/store/task/task.actions';
 import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-task-form',
@@ -37,8 +37,7 @@ export class TaskFormComponent implements OnInit {
   groups: string[] = this.activatedRoute.snapshot.data["groups"];
   unusedGroups: string[] = [];
   taskFormGroup: FormGroup = this.formBuilder.group({
-    title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]
-    ],
+    title: ["", [Validators.required, this.taskFormValidationService.uniqueTitle()]],
     description: [""],
     type: ["", Validators.required],
     status: ["incomplete", Validators.required],

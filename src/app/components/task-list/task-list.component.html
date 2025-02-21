@@ -1,18 +1,18 @@
 <div>
     <div class="task-list-header">
         <h2>{{'tasks' | translate}}: </h2>
-        <p>{{'completed' | translate}} {{'tasks' | translate}}: {{tasksCompleted$ | async}} / {{(tasks$ | async)?.length}}</p>
+        <p>{{'completed' | translate}} {{'tasks' | translate}}: {{tasksCompleted$ | async}} / {{(tasks$ |
+            async)?.length}}</p>
     </div>
     <ul class="task-list">
-        <hr/>
+        <hr />
         <li *ngFor="let task of tasks$ | async">
             <div class="list-element">
                 <app-task class="task" [task]="task"></app-task>
                 <app-remove-button (removeKey)="removeTask($event)" class="remove-button"
                     [keyToRemove]="task._id"></app-remove-button>
             </div>
-            <hr/>
+            <hr />
         </li>
     </ul>
-
 </div>

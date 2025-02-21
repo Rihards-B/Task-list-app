@@ -2,7 +2,7 @@ import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } fr
 import { inject, PLATFORM_ID } from "@angular/core";
 import { isPlatformBrowser } from "@angular/common";
 import { AuthStore } from "../store/auth/auth.store";
-import { exhaustMap, filter, map, Observable, of, switchMap } from "rxjs";
+import { filter, map, Observable, of } from "rxjs";
 import { toObservable } from "@angular/core/rxjs-interop";
 
 export const loggedInGuard: CanActivateFn = (
@@ -52,4 +52,3 @@ export const blockLoggedInUserGuard: CanActivateFn = (
         return true
     }
 };
-
