@@ -1,0 +1,56 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { RemoveButtonComponent } from 'src/app/remove-button/remove-button.component';
+import { GroupService } from 'src/app/sevices/group.service';
+import { MatDialog } from '@angular/material/dialog'
+import { EditGroupComponent } from '../edit-group/edit-group.component';
+import { uniqueGroupName } from 'src/app/validators/uniqueGroupName.validator';
+import { FormErrorComponent } from '../form-error/form-error.component';
+import { take } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
+
+@Component({
+  selector: 'app-group-management',
+  standalone: true,
+  imports: [RemoveButtonComponent, ReactiveFormsModule, FormsModule, FormErrorComponent, TranslateModule],
+  templateUrl: './group-management.component.html',
+  styleUrl: './group-management.component.scss'
+})
+export class GroupManagementComponent {
+  groups = this.activatedRoute.snapshot.data["groups"];
+  createGroupformGroup: FormGroup = this.formBuilder.group({
+    groupName: ["", { updateOn: 'blur', validators: [Validators.required, Validators.pattern('[a-zA-Z0-9_]*')], asyncValidators: [uniqueGroupName()] }],
+  })
+
+  constructor(private activatedRoute: ActivatedRoute,
+    private groupService: GroupService,
+    private formBuilder: FormBuilder,
+    private dialog: MatDialog) {}
+
+  createGroup() {
+    const groupName = this.createGroupformGroup.value["groupName"];
+    console.log(groupName);
+    this.groupService.addGroup(groupName).subscribe();
+    this.groups.push(groupName);
+    this.createGroupformGroup.reset();
+  }
+
+  deleteGroup(groupName: string) {
+    this.groupService.deleteGroup(groupName).subscribe();
+    this.groups.splice(this.groups.indexOf(groupName), 1);
+  }
+
+  edit(groupName: string) {
+    this.dialog.open(EditGroupComponent, { data: { groupName: groupName } })
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((res) => {
+        if (res) {
+          this.groupService.getGroups().pipe(take(1)).subscribe(groups => {
+            this.groups = groups;
+          })
+        }
+      });
+  }
+}

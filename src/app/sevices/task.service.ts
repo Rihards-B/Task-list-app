@@ -40,4 +40,10 @@ export class TaskService {
   updateTask(task: Task) {
     return this.http.put<Task>(BACKEND_TASKS, task);
   }
+
+  // PUT /tasks/assign
+  // Updates an existing tasks assignedTo or groups
+  updateTaskAssignment(_id: string, assignedTo?: string, groups?: string[]) {
+    return this.http.put<Object>(BACKEND_TASKS + "assign", { _id: _id, assignedTo: assignedTo, groups: groups });
+  }
 }

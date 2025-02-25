@@ -24,6 +24,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
   currentUser = this.authStore.currentUser();
   user: User = this.activatedRoute.snapshot.data["user"];
   roles: string[] = this.activatedRoute.snapshot.data["roles"];
+  unusedGroups: string[] = [];
+  groups: string[] = this.activatedRoute.snapshot.data["groups"];
   unusedRoles: string[] = [];
   userRoles: Subject<string[]> = new BehaviorSubject<string[]>([]);
   userIsAdmin: boolean = false;
@@ -31,10 +33,14 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     firstName: [""],
     lastName: [""],
     username: [""],
-    roles: [""]
+    roles: [""],
+    groups: [""]
   });
   addRoleFormGroup: FormGroup = this.formBuilder.group({
     addRole: [""]
+  });
+  addGroupFormGroup: FormGroup = this.formBuilder.group({
+    addGroup: [""]
   });
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -44,6 +50,7 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateUnusedRoles();
+    this.updateUnusedGroups();
     if (this.currentUser && this.currentUser.roles.includes("Admin")) {
       this.userIsAdmin = true;
     } else {
@@ -73,6 +80,16 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  addGroup() {
+    const selectedGroupName: string = this.addGroupFormGroup.value["addGroup"];
+    const groupToAdd = this.groups?.find(group => group === selectedGroupName);
+    if (groupToAdd && this.user) {
+      this.userFormGroup.controls["groups"].value.push(groupToAdd);
+      this.updateUnusedGroups();
+      this.addGroupFormGroup.reset();
+    }
+  }
+
   removeRole(name: string) {
     if (this.user) {
       const roleToRemove = this.user.roles.find(role => role === name);
@@ -83,11 +100,25 @@ export class UserDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeGroup(name: string) {
+    if (this.user) {
+      const groupToRemove = this.user.groups.find(group => group === name);
+      if (groupToRemove) {
+        this.user.groups.splice(this.user.groups.indexOf(groupToRemove), 1);
+        this.updateUnusedGroups();
+      }
+    }
+  }
+
   updateUnusedRoles() {
     // Filtering out roles the user already has and also the admin role
     this.unusedRoles = this.roles?.filter(role =>
       !(this.user?.roles.some(userRole => userRole === role)) &&
       role !== "Admin");
+  }
+
+  updateUnusedGroups() {
+    this.unusedGroups = this.groups?.filter(group => !(this.user?.groups.some(userGroup => userGroup === group)));
   }
 
   updateUser() {

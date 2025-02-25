@@ -4,3 +4,4 @@ export const BACKEND_USERS = BACKEND + "users/";
 export const BACKEND_AUTH = BACKEND + "auth/";
 export const BACKEND_ROLES = BACKEND + "roles/";
 export const BACKEND_TRANSLATIONS = BACKEND + "translations/";
+export const BACKEND_GROUPS = BACKEND + "groups/";

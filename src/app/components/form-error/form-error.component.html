@@ -23,5 +23,8 @@
         @if(control.errors?.["passwordsDontMatch"]) {
             <small>{{"form.input.passwords.must.match" | translate}}</small>
         }
+        @if(control.errors?.["groupTitleNotUnique"]) {
+            <small>{{"form.input.group.title.unique" | translate}}</small>
+        }
     }
 }

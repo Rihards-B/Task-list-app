@@ -1,0 +1,13 @@
+<h2 mat-dialog-title> Edit group </h2>
+<mat-dialog-content>
+    <form [formGroup]="editGroupFormGroup" (ngSubmit)="updateGroup()">
+        <label for="groupName">Group Name:</label>
+        <input type="text" formControlName="groupName" /><br>
+        <app-form-error [control]="editGroupFormGroup.controls['groupName']"></app-form-error>
+        <mat-dialog-actions>
+            <button mat-button mat-dialog-close>Cancel</button>
+            <button mat-button [mat-dialog-close]="true" type="submit"
+                [disabled]="!editGroupFormGroup.valid">Save</button>
+        </mat-dialog-actions>
+    </form>
+</mat-dialog-content>

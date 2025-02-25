@@ -9,11 +9,14 @@
                 <a routerLink="register">{{'register' | translate}}</a>
                 <a routerLink="login">{{'login' | translate}}</a>
             } @else {
+                @if (currentUser()?.roles?.includes("Admin")) {
+                    <a [routerLink]="'/groups'">{{'groups' | translate}}</a>
+                }
                 <a class="username" [routerLink]="'/users/current'">
                     {{currentUser()?.firstName}}
                     {{currentUser()?.lastName}}
                 </a>
-                <a id="logout" (click)="logout()">{{'logout' | translate}}</a>
+            <a id="logout" (click)="logout()">{{'logout' | translate}}</a>
             }
         </li>
     </ul>

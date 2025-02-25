@@ -10,16 +10,19 @@ import { RegisterComponent } from './components/register/register.component';
 import { UserDetailsComponent } from './components/user-details/user-details.component';
 import { UserResolver } from './resolvers/user-resolver';
 import { RoleResolver } from './resolvers/role.resolver';
-import { isAdminGuard } from './guards/role.guard';
+import { hasSomeRole } from './guards/role.guard';
+import { GroupResolver } from './resolvers/group.resolver';
+import { GroupManagementComponent } from './components/group-management/group-management.component';
 
 export const routes: Routes = [
     { path: "", component: TasksCardComponent, canActivate: [loggedInGuard] },
-    { path: "add-task", component: AddTaskFormComponent, canActivate: [loggedInGuard] },
-    { path: ":id/details", component: TaskDetailsComponent, resolve: { task: TaskResolver } },
-    { path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [loggedInGuard] },
-    { path: "users/:id", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver }, canActivate: [isAdminGuard] },
+    { path: "add-task", component: AddTaskFormComponent, canActivate: [loggedInGuard], resolve: { groups: GroupResolver } },
+    { path: ":id/details", component: TaskDetailsComponent, canActivate: [hasSomeRole(["Admin", "Manager"])], resolve: { task: TaskResolver, groups: GroupResolver } },
+    { path: "users/current", component: UserDetailsComponent, resolve: { user: UserResolver }, canActivate: [loggedInGuard] },
+    { path: "users/:id", component: UserDetailsComponent, resolve: { user: UserResolver, roles: RoleResolver, groups: GroupResolver }, canActivate: [hasSomeRole(["Admin"])] },
     { path: "register", component: RegisterComponent, canActivate: [blockLoggedInUserGuard] },
     { path: "login", component: LoginComponent, canActivate: [blockLoggedInUserGuard] },
+    { path: "groups", component: GroupManagementComponent, resolve: { groups: GroupResolver }, canActivate: [hasSomeRole(["Admin"])] },
     { path: "404", component: PageNotFoundComponent },
     { path: "**", redirectTo: "/404" }
 ];
